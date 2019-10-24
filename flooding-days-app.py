@@ -25,7 +25,7 @@ fcol = [fill_color(c, 0.5) for c in col]
 
 # ---------------------------------------------------------------------------
 
-fname = '../FloodProjections/Output/json/stations.json'
+fname = './json/stations.json'
 with open(fname, 'r') as f:
     stations = json.load(f)
 
@@ -35,17 +35,17 @@ with open(fname, 'r') as f:
 station_list = [{'label': stations[s]['name'], 'value': s} for s in stations]
 station_list = sorted(station_list, key=lambda k: k['label'])
 
-fname = '../FloodProjections/Output/json/thresholds.json'
+fname = './json/thresholds.json'
 with open(fname, 'r') as f:
     thresholds = json.load(f)
 
-fname = '../FloodProjections/Output/json/projection_years.json'
+fname = './json/projection_years.json'
 with open(fname, 'r') as f:
     prjn_yrs = json.load(f)
 dec_yrs = [y -4 for y in prjn_yrs[9:-1:10]]
 dec_lmslr_drpdwn = [{'label': 'NOAA Intermediate Low', 'value': 'int_low'}, {'label': 'NOAA Intermediate', 'value': 'int'}, {'label': 'NOAA Intermediate High', 'value': 'int_high'}, {'label': 'Kopp et al. (2014) RCP8.5', 'value': 'kopp'}]
 
-fname = '../FloodProjections/Output/json/first_year_counts.json'
+fname = './json/first_year_counts.json'
 with open(fname, 'r') as f:
     fyr_cnts = json.load(f)
 fyr_cnts_drpdwn = [{'label':n, 'value':n} for n in fyr_cnts]
@@ -56,37 +56,32 @@ fyr_cnts_drpdwn = [{'label':n, 'value':n} for n in fyr_cnts]
 fyrc_init = str(50)
 uid_init = '8658120'
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
-    + 'thresholds.json'
+fname = './json/' + uid_init + '/' + 'thresholds.json'
 with open(fname, 'r') as f:
     noaa_thrsh_init = json.load(f)
 slider_thrsh_init = '{:0>3}'.format(int(noaa_thrsh_init['minor']))
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
+fname = './json/' + uid_init + '/' \
     + slider_thrsh_init + '/' + 'projections.json'
 with open(fname, 'r') as f:
     prjn_init = json.load(f)
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
-    + slider_thrsh_init + '/' + 'first_years.json'
+fname = './json/' + uid_init + '/' + slider_thrsh_init + '/' + 'first_years.json'
 with open(fname, 'r') as f:
     fyrs_init = json.load(f)
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
-    + slider_thrsh_init + '/' + 'occ_to_chrnc.json'
+fname = './json/' + uid_init + '/' + slider_thrsh_init + '/' + 'occ_to_chrnc.json'
 with open(fname, 'r') as f:
     o2c_init = json.load(f)
 
 dec_lmslr_init = 'int'
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
-    + slider_thrsh_init + '/' + 'dec_total.json'
+fname = './json/' + uid_init + '/' + slider_thrsh_init + '/' + 'dec_total.json'
 with open(fname, 'r') as f:
     dtot = json.load(f)
     dtot_init = dtot[dec_lmslr_init]
 
-fname = '../FloodProjections/Output/json/' + uid_init + '/' \
-    + slider_thrsh_init + '/' + 'dec_max.json'
+fname = './json/' + uid_init + '/' + slider_thrsh_init + '/' + 'dec_max.json'
 with open(fname, 'r') as f:
     dmax = json.load(f)
     dmax_init = dmax[dec_lmslr_init]
@@ -917,7 +912,7 @@ def update_threshold_slider_value(selected_threshold):
     )
 def update_threshold_slider_value(selected_station):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
@@ -930,7 +925,7 @@ def update_threshold_slider_value(selected_station):
     )
 def update_moderate_threshold(selected_station):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
@@ -943,7 +938,7 @@ def update_moderate_threshold(selected_station):
     )
 def update_minor_threshold(selected_station):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
@@ -973,7 +968,7 @@ def update_annual_projections_location_text(selected_station):
     )
 def update_projection(selected_station, selected_threshold, selected_projection):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + '{:0>3}'.format(selected_threshold) + '/' + 'projections.json'
     with open(fname, 'r') as f:
         data = json.load(f)
@@ -1012,12 +1007,12 @@ def update_annual_projections_location_text(selected_station):
     )
 def update_projection(selected_station, selected_threshold, selected_projection):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + '{:0>3}'.format(selected_threshold) + '/' + 'dec_total.json'
     with open(fname, 'r') as f:
         dtot = json.load(f)
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + '{:0>3}'.format(selected_threshold) + '/' + 'dec_max.json'
     with open(fname, 'r') as f:
         dmax = json.load(f)
@@ -1038,7 +1033,7 @@ def update_projection(selected_station, selected_threshold, selected_projection)
     )
 def update_firstyear(selected_station, selected_threshold, selected_count):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + '{:0>3}'.format(selected_threshold) + '/' + 'first_years.json'
     with open(fname, 'r') as f:
         data = json.load(f)
@@ -1072,7 +1067,7 @@ def update_firstyear_header_threshold(selected_station):
     )
 def update_occ2chrnc(selected_station, selected_threshold):
 
-    fname = '../FloodProjections/Output/json/' + selected_station + '/' \
+    fname = './json/' + selected_station + '/' \
         + '{:0>3}'.format(selected_threshold) + '/' + 'occ_to_chrnc.json'
     with open(fname, 'r') as f:
         data = json.load(f)
