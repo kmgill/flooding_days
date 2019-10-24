@@ -1,0 +1,90 @@
+#main-div {
+  min-width: 800px;
+  max-width: 1000px;
+  margin: auto;
+  color: #666666
+}
+
+#page-header {
+  margin: 30px 0px 10px 0px;
+}
+
+/* .page-header-logo {
+  height: 50px;
+  float: right;
+  margin: 10px 0px 0px 7px;
+} */
+
+#app-container {
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
+}
+
+#app-header {
+  display: block;
+  overlfow: auto;
+  padding: 25px 15px 20px 15px;
+}
+#app-header .rc-slider-track {
+  background-color: #777777 !important;
+}
+#app-header .rc-slider-dot-active {
+  border-color: #777777 !important;
+}
+#app-header .rc-slider-handle {
+  border-color: #777777 !important;
+}
+
+.section-title h6 {
+  margin: 0px 0px 5px 0px;
+  color: #1f77b4;
+  font-weight: bold;
+}
+
+#tabs-container {
+  margin: 0px 0px;
+}
+
+.custom-tab {
+  height: 55px;
+  margin-bottom: 0px;
+  padding-top: 15px !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #888888;
+  font-size: 16px;
+  font-weight: normal;
+}
+.custom-tab-selected {
+  color: #666666 !important;
+}
+
+.tab-content {
+  padding: 30px 35px 10px 35px;
+  border: 1px solid #d6d6d6;
+  border-top: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#firstyear-fig {
+  width: 100%;
+  margin: auto;
+}
+#firstyear-header {
+  height: 80px;
+}
+
+.header-text {
+  display: inline-block;
+  height: 25px;
+  margin-right: 5px;
+}
+
+
+
+
+
+
+
+

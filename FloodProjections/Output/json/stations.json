@@ -1,0 +1,457 @@
+{
+    "1611400": {
+        "name": "Nawiliwili, HI",
+        "lat": 21.95,
+        "lon": -159.36
+    },
+    "1612340": {
+        "name": "Honolulu, HI",
+        "lat": 21.31,
+        "lon": -157.87
+    },
+    "1612480": {
+        "name": "Mokuoloe, HI",
+        "lat": 21.43,
+        "lon": -157.79
+    },
+    "1615680": {
+        "name": "Kahului, HI",
+        "lat": 20.9,
+        "lon": -156.48
+    },
+    "1617433": {
+        "name": "Kawaihae, HI",
+        "lat": 20.04,
+        "lon": -155.83
+    },
+    "1617760": {
+        "name": "Hilo, HI",
+        "lat": 19.73,
+        "lon": -155.06
+    },
+    "1630000": {
+        "name": "Apra Harbor, Guam",
+        "lat": 13.44,
+        "lon": 144.65
+    },
+    "1770000": {
+        "name": "Pago Pago, American Samoa ",
+        "lat": -14.28,
+        "lon": -170.69
+    },
+    "1820000": {
+        "name": "Kwajalein Island",
+        "lat": 8.73,
+        "lon": 167.74
+    },
+    "1890000": {
+        "name": "Wake Island",
+        "lat": 19.29,
+        "lon": 166.62
+    },
+    "8413320": {
+        "name": "Bar Harbor, ME",
+        "lat": 44.39,
+        "lon": -68.21
+    },
+    "8418150": {
+        "name": "Portland, ME",
+        "lat": 43.66,
+        "lon": -70.25
+    },
+    "8443970": {
+        "name": "Boston, MA",
+        "lat": 42.35,
+        "lon": -71.05
+    },
+    "8447930": {
+        "name": "Woods Hole, MA",
+        "lat": 41.52,
+        "lon": -70.67
+    },
+    "8449130": {
+        "name": "Nantucket Island, MA",
+        "lat": 41.29,
+        "lon": -70.1
+    },
+    "8452660": {
+        "name": "Newport, RI",
+        "lat": 41.51,
+        "lon": -71.33
+    },
+    "8454000": {
+        "name": "Providence, RI",
+        "lat": 41.81,
+        "lon": -71.4
+    },
+    "8461490": {
+        "name": "New London, CT",
+        "lat": 41.36,
+        "lon": -72.09
+    },
+    "8467150": {
+        "name": "Bridgeport, CT",
+        "lat": 41.17,
+        "lon": -73.18
+    },
+    "8510560": {
+        "name": "Montauk, NY",
+        "lat": 41.05,
+        "lon": -71.96
+    },
+    "8516945": {
+        "name": "Kings Point, NY",
+        "lat": 40.81,
+        "lon": -73.76
+    },
+    "8518750": {
+        "name": "The Battery, NY",
+        "lat": 40.7,
+        "lon": -74.01
+    },
+    "8519483": {
+        "name": "Bergen Point, NY",
+        "lat": 40.64,
+        "lon": -74.14
+    },
+    "8531680": {
+        "name": "Sandy Hook, NJ",
+        "lat": 40.47,
+        "lon": -74.01
+    },
+    "8534720": {
+        "name": "Atlantic City, NJ",
+        "lat": 39.36,
+        "lon": -74.42
+    },
+    "8536110": {
+        "name": "Cape May, NJ",
+        "lat": 38.97,
+        "lon": -74.96
+    },
+    "8545240": {
+        "name": "Philadelphia, PA",
+        "lat": 39.93,
+        "lon": -75.14
+    },
+    "8551910": {
+        "name": "Reedy Point, DE",
+        "lat": 39.56,
+        "lon": -75.57
+    },
+    "8557380": {
+        "name": "Lewes, DE",
+        "lat": 38.78,
+        "lon": -75.12
+    },
+    "8571892": {
+        "name": "Cambridge, MD",
+        "lat": 38.57,
+        "lon": -76.07
+    },
+    "8573364": {
+        "name": "Tolchester Beach, MD",
+        "lat": 39.21,
+        "lon": -76.25
+    },
+    "8574680": {
+        "name": "Baltimore, MD",
+        "lat": 39.27,
+        "lon": -76.58
+    },
+    "8575512": {
+        "name": "Annapolis, MD",
+        "lat": 38.98,
+        "lon": -76.48
+    },
+    "8577330": {
+        "name": "Solomons Island, MD",
+        "lat": 38.32,
+        "lon": -76.45
+    },
+    "8594900": {
+        "name": "Washington, DC",
+        "lat": 38.87,
+        "lon": -77.02
+    },
+    "8632200": {
+        "name": "Kiptopeke, VA",
+        "lat": 37.17,
+        "lon": -75.99
+    },
+    "8635750": {
+        "name": "Lewisetta, VA",
+        "lat": 38.0,
+        "lon": -76.46
+    },
+    "8638610": {
+        "name": "Sewells Point, VA",
+        "lat": 36.95,
+        "lon": -76.33
+    },
+    "8638863": {
+        "name": "Chesapeake Bay Bridge, VA",
+        "lat": 36.97,
+        "lon": -76.11
+    },
+    "8651370": {
+        "name": "Duck, NC",
+        "lat": 36.18,
+        "lon": -75.75
+    },
+    "8658120": {
+        "name": "Wilmington, NC",
+        "lat": 34.23,
+        "lon": -77.95
+    },
+    "8661070": {
+        "name": "Springmaid Pier, SC",
+        "lat": 33.66,
+        "lon": -78.92
+    },
+    "8665530": {
+        "name": "Charleston, SC",
+        "lat": 32.78,
+        "lon": -79.93
+    },
+    "8670870": {
+        "name": "Fort Pulaski, GA",
+        "lat": 32.03,
+        "lon": -80.9
+    },
+    "8720030": {
+        "name": "Fernandina Beach, FL",
+        "lat": 30.67,
+        "lon": -81.47
+    },
+    "8720218": {
+        "name": "Mayport, FL",
+        "lat": 30.4,
+        "lon": -81.43
+    },
+    "8721604": {
+        "name": "Trident Pier, FL",
+        "lat": 28.42,
+        "lon": -80.59
+    },
+    "8723214": {
+        "name": "Virginia Key, FL",
+        "lat": 25.73,
+        "lon": -80.16
+    },
+    "8723970": {
+        "name": "Vaca Key, FL",
+        "lat": 24.71,
+        "lon": -81.11
+    },
+    "8724580": {
+        "name": "Key West, FL",
+        "lat": 24.56,
+        "lon": -81.81
+    },
+    "8725110": {
+        "name": "Naples, FL",
+        "lat": 26.13,
+        "lon": -81.81
+    },
+    "8725520": {
+        "name": "Fort Myers, FL",
+        "lat": 26.65,
+        "lon": -81.87
+    },
+    "8726520": {
+        "name": "St. Petersburg, FL",
+        "lat": 27.76,
+        "lon": -82.63
+    },
+    "8726724": {
+        "name": "Clearwater, FL",
+        "lat": 27.98,
+        "lon": -82.83
+    },
+    "8727520": {
+        "name": "Cedar Key, FL",
+        "lat": 29.14,
+        "lon": -83.03
+    },
+    "8728690": {
+        "name": "Apalachicola, FL",
+        "lat": 29.73,
+        "lon": -84.98
+    },
+    "8729108": {
+        "name": "Panama City, FL",
+        "lat": 30.15,
+        "lon": -85.67
+    },
+    "8729210": {
+        "name": "Panama City Beach, FL",
+        "lat": 30.21,
+        "lon": -85.88
+    },
+    "8729840": {
+        "name": "Pensacola, FL",
+        "lat": 30.4,
+        "lon": -87.21
+    },
+    "8735180": {
+        "name": "Dauphin Island, AL",
+        "lat": 30.25,
+        "lon": -88.08
+    },
+    "8761724": {
+        "name": "Grand Isle, LA",
+        "lat": 29.26,
+        "lon": -89.96
+    },
+    "8770570": {
+        "name": "Sabine Pass, TX",
+        "lat": 29.73,
+        "lon": -93.87
+    },
+    "8770613": {
+        "name": "Morgans Point, TX",
+        "lat": 29.68,
+        "lon": -94.99
+    },
+    "8771450": {
+        "name": "Galveston Pier 21, TX",
+        "lat": 29.31,
+        "lon": -94.79
+    },
+    "8774770": {
+        "name": "Rockport, TX",
+        "lat": 28.02,
+        "lon": -97.05
+    },
+    "8775870": {
+        "name": "Corpus Christi, TX",
+        "lat": 27.58,
+        "lon": -97.22
+    },
+    "8779770": {
+        "name": "Port Isabel, TX",
+        "lat": 26.06,
+        "lon": -97.22
+    },
+    "9410170": {
+        "name": "San Diego, CA",
+        "lat": 32.71,
+        "lon": -117.17
+    },
+    "9410230": {
+        "name": "La Jolla, CA",
+        "lat": 32.87,
+        "lon": -117.26
+    },
+    "9410660": {
+        "name": "Los Angeles, CA",
+        "lat": 33.72,
+        "lon": -118.27
+    },
+    "9410840": {
+        "name": "Santa Monica, CA",
+        "lat": 34.01,
+        "lon": -118.5
+    },
+    "9412110": {
+        "name": "Port San Luis, CA",
+        "lat": 35.18,
+        "lon": -120.76
+    },
+    "9413450": {
+        "name": "Monterey, CA",
+        "lat": 36.61,
+        "lon": -121.89
+    },
+    "9414290": {
+        "name": "San Francisco, CA",
+        "lat": 37.81,
+        "lon": -122.47
+    },
+    "9414750": {
+        "name": "Alameda, CA",
+        "lat": 37.77,
+        "lon": -122.3
+    },
+    "9415020": {
+        "name": "Point Reyes, CA",
+        "lat": 38.0,
+        "lon": -122.98
+    },
+    "9415144": {
+        "name": "Port Chicago, CA",
+        "lat": 38.06,
+        "lon": -122.04
+    },
+    "9416841": {
+        "name": "Arena Cove, CA",
+        "lat": 38.91,
+        "lon": -123.71
+    },
+    "9418767": {
+        "name": "Humboldt Bay, CA",
+        "lat": 40.77,
+        "lon": -124.22
+    },
+    "9431647": {
+        "name": "Port Orford, CA",
+        "lat": 42.74,
+        "lon": -124.5
+    },
+    "9432780": {
+        "name": "Charleston, OR",
+        "lat": 43.35,
+        "lon": -124.32
+    },
+    "9435380": {
+        "name": "South Beach, OR",
+        "lat": 44.63,
+        "lon": -124.04
+    },
+    "9444090": {
+        "name": "Port Angeles, WA",
+        "lat": 48.13,
+        "lon": -123.44
+    },
+    "9444900": {
+        "name": "Port Townsend, WA",
+        "lat": 48.11,
+        "lon": -122.76
+    },
+    "9447130": {
+        "name": "Seattle, WA",
+        "lat": 47.6,
+        "lon": -122.34
+    },
+    "9449424": {
+        "name": "Cherry Point, WA",
+        "lat": 48.86,
+        "lon": -122.76
+    },
+    "9449880": {
+        "name": "Friday Harbor, WA",
+        "lat": 48.55,
+        "lon": -123.01
+    },
+    "9751401": {
+        "name": "Lime Tree Bay, VI",
+        "lat": 17.69,
+        "lon": -64.75
+    },
+    "9751639": {
+        "name": "Charlotte Amalie, VI",
+        "lat": 18.34,
+        "lon": -64.92
+    },
+    "9755371": {
+        "name": "San Juan, PR",
+        "lat": 18.46,
+        "lon": -66.12
+    },
+    "9759110": {
+        "name": "Magueyes Island, PR",
+        "lat": 17.97,
+        "lon": -67.05
+    }
+}
