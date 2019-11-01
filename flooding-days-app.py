@@ -710,7 +710,7 @@ This **dropdown selector** contains >90 coastal locations from around the United
                             style = {'margin': '0px 0px 7px -2px'}
                         ),
 
-                        html.Div('cm above MHHW',
+                        html.Div('above MHHW',
                             className = 'header-text',
                             style = {'margin': '0px 0px 7px 6px', 'font-size': '16px'}
                         ),
@@ -788,7 +788,7 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                                     style = {'margin': '0px 4px 0px 4px', 'color':
                                         col[1], 'font-weight': 'bold'}
                                 ),
-                                html.Div('cm above MHHW',
+                                html.Div('above MHHW',
                                     className = 'header-text',
                                 ),
                                 html.Div('Moderate:',
@@ -802,7 +802,7 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                                     style = {'margin': '0px 4px 0px 4px', 'color':
                                         col[3], 'font-weight': 'bold'}
                                 ),
-                                html.Div('cm above MHHW',
+                                html.Div('above MHHW',
                                     className = 'header-text',
                                 ),
                             ]),
@@ -814,12 +814,14 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                         children=[
 
                             dcc.RadioItems(
+                                id = 'unit-switcher',
                                 className = 'header-text',
-                                options=[
-                                    {'label': ' Inches', 'value': 'in'},
-                                    {'label': ' Centimeters', 'value': 'cm'},
+                                options = [
+                                    {'label': 'Inches', 'value': 'in'},
+                                    {'label': 'Centimeters', 'value': 'cm'},
                                 ],
-                                value='cm',
+                                value = 'cm',
+                                inputStyle={'margin-right': '10px'}
                             )
 
                         ]
@@ -842,9 +844,9 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                 html.Div(id='projections-header', children=[
                     dcc.Markdown('###### Flooding days during the 21st century', className='section-title'),
                     html.Div('The following figure shows the number of days per year that sea level in ', className='module-text'),
-                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='module-text text-highlight'),
                     html.Div('will exceed ', className='module-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='module-text text-highlight'),
                     html.Div('above MHHW.', className='module-text'),
                     html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
                 ]),
@@ -984,18 +986,35 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
 @app.callback(
     dash.dependencies.Output('threshold-slider-value', 'children'),
-    [dash.dependencies.Input('threshold-slider', 'value')]
+    [dash.dependencies.Input('threshold-slider', 'value'),
+    dash.dependencies.Input('unit-switcher', 'value')]
     )
-def update_threshold_slider_value(selected_threshold):
-    return str(selected_threshold)
+def update_threshold_slider_value(selected_threshold, units):
+    if units == 'in':
+        c2i = 0.393701
+        selected_threshold = int(np.round(selected_threshold*c2i))
+        ustr = ' in'
+    else:
+        ustr = ' cm'
+    return str(selected_threshold) + ustr
 
 @app.callback(
-    [dash.dependencies.Output('threshold-slider', 'value'),
-    dash.dependencies.Output('threshold-slider', 'marks')],
-    [dash.dependencies.Input('station-picker', 'value')]
+    dash.dependencies.Output('threshold-slider', 'marks'),
+    [dash.dependencies.Input('station-picker', 'value'),
+    dash.dependencies.Input('unit-switcher', 'value')]
     )
-def update_threshold_slider_value(selected_station):
-
+def update_threshold_slider_marks(selected_station, units):
+    
+    c2i = 0.393701
+    
+    if units == 'cm':
+        slider_marks_base = \
+            {t: {'label': str(t)} for t in thresholds if t % 10 == 0}
+    elif units == 'in':
+        slider_marks_base = \
+            {t: {'label': str(int(np.round(t*c2i)))}
+                for t in thresholds if t*c2i % 3 < 0.4}
+            
     fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
@@ -1011,7 +1030,7 @@ def update_threshold_slider_value(selected_station):
     }
     slider_marks = {**slider_marks_base, **slider_marks_noaa}
 
-    return int(noaa_thrsh['minor']), slider_marks
+    return slider_marks
 
 @app.callback(
     dash.dependencies.Output('noaa-thrsh-station', 'children'),
@@ -1023,16 +1042,26 @@ def update_annual_projections_location_text(selected_station):
 @app.callback(
     [dash.dependencies.Output('noaa-thrsh-minor', 'children'),
     dash.dependencies.Output('noaa-thrsh-moderate', 'children')],
-    [dash.dependencies.Input('station-picker', 'value')]
+    [dash.dependencies.Input('station-picker', 'value'),
+    dash.dependencies.Input('unit-switcher', 'value')]
     )
-def update_moderate_threshold(selected_station):
+def update_moderate_threshold(selected_station, units):
 
     fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
+        
+    if units == 'in':
+        c2i = 0.393701
+        noaa_thrsh['minor'] *= c2i
+        noaa_thrsh['moderate'] *= c2i
+        ustr = ' in'
+    else:
+        ustr = ' cm'
 
-    return str(int(noaa_thrsh['minor'])), str(int(noaa_thrsh['moderate']))
+    return str(int(np.round(noaa_thrsh['minor']))) + ustr, \
+        str(int(np.round(noaa_thrsh['moderate']))) + ustr
 
 # ---------------------------------------------------------------------------
 # annual projections
