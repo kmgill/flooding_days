@@ -23,7 +23,7 @@
 #app-header {
   display: block;
   overlfow: auto;
-  padding: 25px 0px 40px 0px;
+  padding: 25px 0px 30px 0px;
 }
 #app-header .rc-slider-track {
   background-color: #777777 !important;
@@ -75,12 +75,35 @@
   height: 80px;
 }
 
+.text-highlight {
+  color: #1f77b4 !important;
+  font-weight: bold;
+}
+
+.header-title {
+  display: inline-block;
+  color: #777777;
+  font-size: 20px;
+}
+
 .header-text {
+  display: inline-block;
+  color: #777777;
+  font-size: 14px;
+}
+
+.module-text {
   display: inline-block;
   height: 25px;
   margin-right: 5px;
 }
 
+.help {
+  display: inline-block;
+  margin: 0px 0px 0px 4px;
+  color: #999999;
+  font-size: 20px;
+}
 .help:hover {
   color: #1f77b4 !important;
 }
@@ -126,6 +149,12 @@
   color: #1f77b4;
 }
 
+.threshold-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 55px;
+  vertical-align: top;
+}
 
 
 

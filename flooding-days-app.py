@@ -61,6 +61,19 @@ with open(fname, 'r') as f:
     noaa_thrsh_init = json.load(f)
 slider_thrsh_init = '{:0>3}'.format(int(noaa_thrsh_init['minor']))
 
+slider_marks_base = {t: {'label': str(t)} for t in thresholds if t % 10 == 0}
+slider_marks_noaa = {
+    int(noaa_thrsh_init['minor']):
+        {'label': '\u25B2\nMinor',
+            'style': {'color': col[1], 'white-space': 'pre-line'}},
+    int(noaa_thrsh_init['moderate']):
+        {'label': '\u25B2\nModerate',
+            'style': {'color': col[3], 'white-space': 'pre-line'}},
+}
+slider_marks = {**slider_marks_base, **slider_marks_noaa}
+
+# import sys; sys.exit()
+
 fname = './json/' + uid_init + '/' \
     + slider_thrsh_init + '/' + 'projections.json'
 with open(fname, 'r') as f:
@@ -654,11 +667,11 @@ app.layout = html.Div(id='main-div', children=[
 
                 html.Div(style={'position': 'relative'}, children=[
                     html.Div('Location',
-                        style={'display': 'inline-block', 'margin': '0px 0px 2px 2px', 'color': '#1f77b4', 'font-size': '20px', 'font-weight': 'bold'}
+                        className = 'header-title text-highlight',
+                        style={'margin': '0px 0px 2px 2px'}
                     ),
                     html.Div(
                         className = 'help help-left',
-                        style = {'display': 'inline-block', 'margin': '0px 0px 2px 4px', 'color': '#999999', 'font-size': '20px'},
                         children = [
                             dcc.Markdown('''
 This **dropdown selector** contains >90 coastal locations from around the United States and its island territories for which there is sufficient tide gauge data to make robust projections of future flood frequency.
@@ -676,31 +689,34 @@ This **dropdown selector** contains >90 coastal locations from around the United
                     value = uid_init,
                     searchable = True,
                     clearable = False,
-                    style = {'height': '40px', 'display': 'block', 'margin-right': '30px'}
+                    style = {'height': '37px', 'display': 'block', 'margin-right': '30px'}
                 ),
+
             ]),
 
-            html.Div(style={'float': 'left', 'width': '62%', 'margin-right': '1%'}, children=[
+            html.Div(style={'float': 'left', 'width': '62%', 'margin-right': '1%'}, children = [
 
-                html.Div(style={'display': 'flex', 'justify-content': 'space-between', 'position': 'relative'}, children=[
+                html.Div(style = {'display': 'flex', 'justify-content': 'space-between', 'position': 'relative'}, children=[
 
                     html.Div('Flooding Threshold',
-                        style={'display': 'inline-block', 'margin': '0px 0px 7px -2px', 'color': '#1f77b4', 'font-size': '20px', 'font-weight': 'bold'}
+                        className = 'header-title text-highlight',
+                        style = {'margin': '0px 0px 7px -2px'}
                     ),
 
                     html.Div(children=[
                         html.Div(str(int(slider_thrsh_init)),
-                            id='threshold-slider-value',
-                            style={'display': 'inline-block', 'margin': '0px 0px 7px -2px', 'color': '#1f77b4', 'font-size': '20px', 'font-weight': 'bold'}
+                            id = 'threshold-slider-value',
+                            className = 'header-title text-highlight',
+                            style = {'margin': '0px 0px 7px -2px'}
                         ),
 
                         html.Div('cm above MHHW',
-                            style={'display': 'inline-block', 'margin': '0px 0px 7px 4px', 'color': '#777777', 'font-size': '16px', 'font-weight': 'normal'}
+                            className = 'header-text',
+                            style = {'margin': '0px 0px 7px 6px', 'font-size': '16px'}
                         ),
 
                         html.Div(
                             className = 'help help-right',
-                            style = {'display': 'inline-block', 'margin': '0px 0px 2px 4px', 'color': '#999999', 'font-size': '20px'},
                             children = [
                                 dcc.Markdown('''
 **MHHW** stands for *Mean Higher High Water*, which is defined as the average highest observed water level per tidal day experienced at this location during the period 1983-2001. This 19-year period is defined as the current National Tidal Datum Epoch (NTDE). More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
@@ -718,73 +734,103 @@ This **dropdown selector** contains >90 coastal locations from around the United
                             min = min(thresholds),
                             max = max(thresholds),
                             value = int(slider_thrsh_init),
-                            marks = {str(t): str(t) for t in thresholds if t % 10 == 0},
+                            marks = slider_marks,
                             updatemode = 'drag'
                             # vertical = True,
                         )],
                     style = {'display': 'block', 'width': ''},
                 ),
 
-                html.Div(children=[
-                    html.Div(style={'display': 'inline-block', 'margin': '40px 0px 0px -2px', 'color': '#777777', 'font-size': '14px', 'vertical-align': 'top'}, children=[
+                html.Div(className='threshold-info', children=[
+                    html.Div(
+                        style = {'display': 'inline-block',
+                            'margin-left': '-2px'},
+                        children=[
 
-                        html.Div(style={'position': 'relative'}, children=[
-                            html.Div('NOAA flooding thresholds for',
-                                style={'display': 'inline-block', 'font-weight': 'bold'}
-                            ),
-                            html.Div(stations[uid_init]['name'],
-                                id='noaa-thrsh-station',
-                                style={'display': 'inline-block', 'margin-left': '4px', 'color': '#1f77b4', 'font-size': '14px', 'font-weight': 'bold'}
-                            ),
-                            html.Div(':',
-                                style={'display': 'inline-block', 'margin-left': '1px', 'font-weight': 'bold'}
-                            ),
-                            html.Div(
-                                className = 'help help-right',
-                                style = {'display': 'inline-block', 'margin': '0px 0px 2px 4px', 'color': '#999999', 'font-size': '16px'},
-                                children = [
-                                    dcc.Markdown('''
+                            html.Div(style={'position': 'relative'}, children=[
+                                html.Div('NOAA flooding thresholds for',
+                                    className = 'header-text',
+                                    style={'font-weight': 'bold'}
+                                ),
+                                html.Div(stations[uid_init]['name'],
+                                    id='noaa-thrsh-station',
+                                    className = 'header-text text-highlight',
+                                    style={'margin': '0px 1px 0px 4px'}
+                                ),
+                                html.Div(':',
+                                    className = 'header-text',
+                                    style={'font-weight': 'bold'}
+                                ),
+                                html.Div(
+                                    className = 'help help-right',
+                                    style = {'font-size': '16px'},
+                                    children = [
+                                        dcc.Markdown('''
 **NOAA flooding thresholds** are based on a statistical relationship between vulnerability and mean tidal range. Details of this analysis can be found in the following report:
 
 Sweet, W. V., Dusek, G., Obeysekera, J., & Marra, J. J. (2018). NOAA Technical Report NOS CO-OPS 086: Patterns And Projections Of High Tide Flooding Along The U.S. Coastline Using A Common Impact Threshold. *Silver Spring, Maryland*.
 
 Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
-                                    '''),
-                                    '\u003f\u20dd'
-                                ]
-                            ),
-                        ]),
+                                        '''),
+                                        '\u003f\u20dd'
+                                    ]
+                                ),
+                            ]),
 
-                        html.Div(children=[
-                            html.Div('Minor:',
-                                style={'display': 'inline-block', 'color': '#777777', 'font-size': '14px', 'font-weight': 'bold'}
-                            ),
-                            html.Div(str(int(noaa_thrsh_init['minor'])),
-                                id='noaa-thrsh-minor',
-                                style={'display': 'inline-block', 'margin': '0px 0px 0px 4px', 'color': '#1f77b4', 'font-size': '14px', 'font-weight': 'bold'}
-                            ),
-                            html.Div('cm above MHHW',
-                                style={'display': 'inline-block', 'margin': '0px 0px 0px 4px', 'color': '#777777', 'font-size': '14px', 'font-weight': 'normal'}
-                            ),
-                            html.Div('Moderate:',
-                                style={'display': 'inline-block', 'margin': '0px 0px 0px 20px', 'color': '#777777', 'font-size': '14px', 'font-weight': 'bold'}
-                            ),
-                            html.Div(str(int(noaa_thrsh_init['moderate'])),
-                                id='noaa-thrsh-moderate',
-                                style={'display': 'inline-block', 'margin-left': '4px', 'color': '#1f77b4', 'font-weight': 'bold'}
-                            ),
-                            html.Div('cm above MHHW',
-                                style={'display': 'inline-block', 'margin-left': '4px'}
-                            ),
-                        ]),
+                            html.Div(children=[
+                                html.Div('Minor:',
+                                    className = 'header-text',
+                                    style={'font-weight': 'bold'}
+                                ),
+                                html.Div(str(int(noaa_thrsh_init['minor'])),
+                                    id='noaa-thrsh-minor',
+                                    className = 'header-text',
+                                    style = {'margin': '0px 4px 0px 4px', 'color':
+                                        col[1], 'font-weight': 'bold'}
+                                ),
+                                html.Div('cm above MHHW',
+                                    className = 'header-text',
+                                ),
+                                html.Div('Moderate:',
+                                    className = 'header-text',
+                                    style={'margin-left': '30px',
+                                        'font-weight': 'bold'}
+                                ),
+                                html.Div(str(int(noaa_thrsh_init['moderate'])),
+                                    id='noaa-thrsh-moderate',
+                                    className = 'header-text',
+                                    style = {'margin': '0px 4px 0px 4px', 'color':
+                                        col[3], 'font-weight': 'bold'}
+                                ),
+                                html.Div('cm above MHHW',
+                                    className = 'header-text',
+                                ),
+                            ]),
+                        ]
+                    ),
 
-                    ]),
+                    html.Div(
+                        style = {'display': 'inline-block'},
+                        children=[
+
+                            dcc.RadioItems(
+                                className = 'header-text',
+                                options=[
+                                    {'label': ' Inches', 'value': 'in'},
+                                    {'label': ' Centimeters', 'value': 'cm'},
+                                ],
+                                value='cm',
+                            )
+
+                        ]
+                    ),
                 ]),
 
-            ]),
+            ]), # end threshold group
 
             html.Div(style={'clear': 'both'}),
-        ]),
+
+        ]), # end control panel
 
         # -------------------------------------------------------------------
         # tabs
@@ -795,15 +841,15 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
                 html.Div(id='projections-header', children=[
                     dcc.Markdown('###### Flooding days during the 21st century', className='section-title'),
-                    html.Div('The following figure shows the number of days per year that sea level in ', className='header-text'),
-                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('will exceed ', className='header-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW.', className='header-text'),
+                    html.Div('The following figure shows the number of days per year that sea level in ', className='module-text'),
+                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('will exceed ', className='module-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('above MHHW.', className='module-text'),
                     html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
                 ]),
 
-                html.Div('Based on local mean sea level projection:', className='header-text', style={'vertical-align': 'top'}),
+                html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
                 dcc.Dropdown(
                     id = 'projection-picker',
                     options = [
@@ -843,15 +889,15 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
                 html.Div(id='decadal-header', children=[
                     dcc.Markdown('###### Projections of flooding days by decade', className='section-title'),
-                    html.Div('The figure below shows the average and maximum number of days per year in future decades that sea level in ', className='header-text'),
-                    html.Div(stations[uid_init]['name'], id='decadal-header-station', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('will exceed ', className='header-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='decadal-header-threshold', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW. The total number of events per decade is the average multiplied by ten.', className='header-text'),
+                    html.Div('The figure below shows the average and maximum number of days per year in future decades that sea level in ', className='module-text'),
+                    html.Div(stations[uid_init]['name'], id='decadal-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('will exceed ', className='module-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='decadal-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('above MHHW. The total number of events per decade is the average multiplied by ten.', className='module-text'),
                     html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
                 ]),
 
-                html.Div('Based on local mean sea level projection:', className='header-text', style={'vertical-align': 'top'}),
+                html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
                 dcc.Dropdown(
                     id = 'decadal-lmslr-picker',
                     options = dec_lmslr_drpdwn,
@@ -876,9 +922,9 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
                 html.Div(id='firstyear-header', children=[
                     dcc.Markdown('###### Question \#1', className='section-title'),
-                    html.Div('What year will ', className='header-text'),
-                    html.Div(stations[uid_init]['name'], id='firstyear-header-station', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('first experience', className='header-text'),
+                    html.Div('What year will ', className='module-text'),
+                    html.Div(stations[uid_init]['name'], id='firstyear-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('first experience', className='module-text'),
                     dcc.Dropdown(
                         id = 'numxd-picker',
                         options = fyr_cnts_drpdwn,
@@ -887,9 +933,9 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                         clearable = False,
                         style = {'height': '37px', 'width': '50px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
                     ),
-                    html.Div('days with sea level exceeding', className='header-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='firstyear-header-threshold', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW?', className='header-text')
+                    html.Div('days with sea level exceeding', className='module-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='firstyear-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('above MHHW?', className='module-text')
                 ]),
 
                 dcc.Graph(
@@ -903,11 +949,11 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
                 html.Div(id='occ2chrnc-header', children=[
                     dcc.Markdown('###### Question \#2', className='section-title'),
-                    # html.Div('For ', className='header-text'),
-                    # html.Div(stations[uid_init]['name'], id='occ2chrnc-header-station', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('When will the frequency of exceedances above the', className='header-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='occ2chrnc-header-threshold', className='header-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('threshold transition from occasional to chronic?', className='header-text')
+                    # html.Div('For ', className='module-text'),
+                    # html.Div(stations[uid_init]['name'], id='occ2chrnc-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('When will the frequency of exceedances above the', className='module-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='occ2chrnc-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('threshold transition from occasional to chronic?', className='module-text')
                 ]),
 
                 dcc.Graph(
@@ -944,7 +990,8 @@ def update_threshold_slider_value(selected_threshold):
     return str(selected_threshold)
 
 @app.callback(
-    dash.dependencies.Output('threshold-slider', 'value'),
+    [dash.dependencies.Output('threshold-slider', 'value'),
+    dash.dependencies.Output('threshold-slider', 'marks')],
     [dash.dependencies.Input('station-picker', 'value')]
     )
 def update_threshold_slider_value(selected_station):
@@ -954,7 +1001,17 @@ def update_threshold_slider_value(selected_station):
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
 
-    return int(noaa_thrsh['minor'])
+    slider_marks_noaa = {
+        int(noaa_thrsh['minor']):
+            {'label': '\u25B2\nMinor',
+                'style': {'color': col[1], 'white-space': 'pre-line'}},
+        int(noaa_thrsh['moderate']):
+            {'label': '\u25B2\nModerate',
+                'style': {'color': col[3], 'white-space': 'pre-line'}},
+    }
+    slider_marks = {**slider_marks_base, **slider_marks_noaa}
+
+    return int(noaa_thrsh['minor']), slider_marks
 
 @app.callback(
     dash.dependencies.Output('noaa-thrsh-station', 'children'),
@@ -964,7 +1021,8 @@ def update_annual_projections_location_text(selected_station):
     return str(stations[selected_station]['name'])
 
 @app.callback(
-    dash.dependencies.Output('noaa-thrsh-moderate', 'children'),
+    [dash.dependencies.Output('noaa-thrsh-minor', 'children'),
+    dash.dependencies.Output('noaa-thrsh-moderate', 'children')],
     [dash.dependencies.Input('station-picker', 'value')]
     )
 def update_moderate_threshold(selected_station):
@@ -974,20 +1032,7 @@ def update_moderate_threshold(selected_station):
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
 
-    return str(int(noaa_thrsh['moderate']))
-
-@app.callback(
-    dash.dependencies.Output('noaa-thrsh-minor', 'children'),
-    [dash.dependencies.Input('station-picker', 'value')]
-    )
-def update_minor_threshold(selected_station):
-
-    fname = './json/' + selected_station + '/' \
-        + 'thresholds.json'
-    with open(fname, 'r') as f:
-        noaa_thrsh = json.load(f)
-
-    return str(int(noaa_thrsh['minor']))
+    return str(int(noaa_thrsh['minor'])), str(int(noaa_thrsh['moderate']))
 
 # ---------------------------------------------------------------------------
 # annual projections
