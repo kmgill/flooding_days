@@ -104,6 +104,9 @@
   color: #999999;
   font-size: 20px;
 }
+.help-graph {
+  position: absolute;
+}
 .help:hover {
   color: #1f77b4 !important;
 }
@@ -132,11 +135,14 @@
 .help-right div {
   right: -30px;
 }
+.help div ul ul {
+  margin-top: 5px;
+}
 .help:hover div {
   color: #777777;
   display: inline-block;
-  max-width: 300px;
-  min-width: 300px;
+  max-width: 400px;
+  min-width: 400px;
   visibility: visible; opacity:1;
   -webkit-transition-delay: 0s;
   transition-delay: 0s;

@@ -334,7 +334,8 @@ def decadal_traces(dtot, dmax, dscn):
 
 modebar_config = {
     'modeBarButtonsToRemove': ['toggleSpikelines', 'sendDataToCloud', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-    'displaylogo': False
+    'displaylogo': False,
+    # 'displayModeBar': True
 }
 
 prjn_layout = {
@@ -674,9 +675,10 @@ app.layout = html.Div(id='main-div', children=[
                         className = 'help help-left',
                         children = [
                             dcc.Markdown('''
-This **dropdown selector** contains >90 coastal locations from around the United States and its island territories for which there is sufficient tide gauge data to make robust projections of future flood frequency.
+* **Choose** from >90 coastal locations from around the United States and its island territories.
+    * These are locations where there is sufficient tide gauge data to make robust projections of future flood frequency.
 
-**Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
+* **Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
                             '''),
                             '\u003f\u20dd'
                         ]
@@ -719,7 +721,10 @@ This **dropdown selector** contains >90 coastal locations from around the United
                             className = 'help help-right',
                             children = [
                                 dcc.Markdown('''
-**MHHW** stands for *Mean Higher High Water*, which is defined as the average highest observed water level per tidal day experienced at this location during the period 1983-2001. This 19-year period is defined as the current National Tidal Datum Epoch (NTDE). More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
+* **MHHW** stands for *Mean Higher High Water*
+    * *MHHW* is defined as the average highest observed water level per tidal day experienced at this location during the period 1983-2001.
+    * This specific 19-year period, 1983–2001, is the current National Tidal Datum Epoch (NTDE).
+    * More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
                                 '''),
                                 '\u003f\u20dd'
                             ]
@@ -763,14 +768,10 @@ This **dropdown selector** contains >90 coastal locations from around the United
                                 ),
                                 html.Div(
                                     className = 'help help-right',
-                                    style = {'font-size': '16px'},
                                     children = [
                                         dcc.Markdown('''
-**NOAA flooding thresholds** are based on a statistical relationship between vulnerability and mean tidal range. Details of this analysis can be found in the following report:
-
-Sweet, W. V., Dusek, G., Obeysekera, J., & Marra, J. J. (2018). NOAA Technical Report NOS CO-OPS 086: Patterns And Projections Of High Tide Flooding Along The U.S. Coastline Using A Common Impact Threshold. *Silver Spring, Maryland*.
-
-Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+* **NOAA flooding thresholds** are based on a statistical relationship between mean tidal range and vulnerability to high water levels.
+    * Details of this analysis can be found in a NOAA report (Sweet et al., 2018), which can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
                                         '''),
                                         '\u003f\u20dd'
                                     ]
@@ -821,7 +822,7 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                                     {'label': 'Centimeters', 'value': 'cm'},
                                 ],
                                 value = 'cm',
-                                inputStyle={'margin-right': '10px'}
+                                inputStyle={'margin-right': '10px', 'background-color': '#1f77b4'}
                             )
 
                         ]
@@ -843,7 +844,7 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
 
                 html.Div(id='projections-header', children=[
                     dcc.Markdown('###### Flooding days during the 21st century', className='section-title'),
-                    html.Div('The following figure shows the number of days per year that sea level in ', className='module-text'),
+                    html.Div('The graph below shows the number of days per year that sea level in ', className='module-text'),
                     html.Div(stations[uid_init]['name'], id='annual-header-station', className='module-text text-highlight'),
                     html.Div('will exceed ', className='module-text'),
                     html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='module-text text-highlight'),
@@ -851,31 +852,44 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                     html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
                 ]),
 
-                html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
-                dcc.Dropdown(
-                    id = 'projection-picker',
-                    options = [
-                        {'label': 'NOAA Sea Level Rise Scenarios', 'value': 'noaa'},
-                        {'label': 'Kopp et al. (2014) RCP8.5', 'value': 'kopp'},
-                    ],
-                    value = 'noaa',
-                    searchable = False,
-                    clearable = False,
-                    style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
-                ),
+                html.Div(style = {'position': 'relative'}, children=[
+                    html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
+                    dcc.Dropdown(
+                        id = 'projection-picker',
+                        options = [
+                            {'label': 'NOAA Sea Level Rise Scenarios', 'value': 'noaa'},
+                            {'label': 'Kopp et al. (2014) RCP8.5', 'value': 'kopp'},
+                        ],
+                        value = 'noaa',
+                        searchable = False,
+                        clearable = False,
+                        style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
+                    ),
+                    html.Div(
+                        className = 'help help-right',
+                        children = [
+                            dcc.Markdown('''
+* Choose a **localized mean sea level projection**
+    * It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
+    * Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
+    * Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
 
-                # html.Div(style={'display': 'inline-block'}, children=[
-                #     dcc.RadioItems(
-                #         id = 'projection-picker',
-                #         options = [
-                #             {'label': 'NOAA Sea Level Rise Scenarios', 'value': 'noaa'},
-                #             {'label': 'Kopp et al. (2014) RCP8.5', 'value': 'kopp'},
-                #         ],
-                #         value = 'noaa',
-                #         labelStyle = {'display': 'inline-block', 'margin-left': '15px'}
-                #     ),
-                # ]),
+* **Kopp et al. (2014) RCP8.5 scenario**
+    * Corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
+    * Accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
+    * The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
 
+* **NOAA Sea Level Rise Scenarios**
+    * Correspond to specific, plausible scenarios defined by the amount of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
+    * **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
+    * **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
+    * **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
+    * The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+                            '''),
+                            '\u003f\u20dd'
+                        ]
+                    ),
+                ]),
                 dcc.Graph(
                     id = 'projections-fig',
                     figure = {
@@ -883,6 +897,18 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                         'layout': prjn_layout,
                     },
                     config = modebar_config
+                ),
+                html.Div(
+                    className = 'help help-graph help-left',
+                    children = [
+                        dcc.Markdown('''
+* **Choose** from >90 coastal locations from around the United States and its island territories.
+    * These are locations where there is sufficient tide gauge data to make robust projections of future flood frequency.
+
+* **Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
+                        '''),
+                        '\u003f\u20dd'
+                    ]
                 ),
 
             ]),
@@ -899,15 +925,41 @@ Download a .pdf of the report [**here**](https://tidesandcurrents.noaa.gov/publi
                     html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
                 ]),
 
-                html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
-                dcc.Dropdown(
-                    id = 'decadal-lmslr-picker',
-                    options = dec_lmslr_drpdwn,
-                    value = dec_lmslr_init,
-                    searchable = False,
-                    clearable = False,
-                    style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
-                ),
+                html.Div(style = {'position': 'relative'}, children=[
+                    html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
+                    dcc.Dropdown(
+                        id = 'decadal-lmslr-picker',
+                        options = dec_lmslr_drpdwn,
+                        value = dec_lmslr_init,
+                        searchable = False,
+                        clearable = False,
+                        style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
+                    ),
+                    html.Div(
+                        className = 'help help-right',
+                        children = [
+                            dcc.Markdown('''
+* Choose a **localized mean sea level projection**
+    * It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
+    * Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
+    * Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
+
+* **Kopp et al. (2014) RCP8.5 scenario**
+    * Corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
+    * Accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
+    * The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+
+* **NOAA Sea Level Rise Scenarios**
+    * Correspond to specific, plausible scenarios defined by the amount of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
+    * **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
+    * **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
+    * **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
+    * The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+                            '''),
+                            '\u003f\u20dd'
+                        ]
+                    ),
+                ]),
 
                 dcc.Graph(
                     id = 'decadal-fig',
@@ -1004,9 +1056,9 @@ def update_threshold_slider_value(selected_threshold, units):
     dash.dependencies.Input('unit-switcher', 'value')]
     )
 def update_threshold_slider_marks(selected_station, units):
-    
+
     c2i = 0.393701
-    
+
     if units == 'cm':
         slider_marks_base = \
             {t: {'label': str(t)} for t in thresholds if t % 10 == 0}
@@ -1014,7 +1066,7 @@ def update_threshold_slider_marks(selected_station, units):
         slider_marks_base = \
             {t: {'label': str(int(np.round(t*c2i)))}
                 for t in thresholds if t*c2i % 3 < 0.4}
-            
+
     fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
@@ -1051,7 +1103,7 @@ def update_moderate_threshold(selected_station, units):
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
-        
+
     if units == 'in':
         c2i = 0.393701
         noaa_thrsh['minor'] *= c2i
