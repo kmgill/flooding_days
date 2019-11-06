@@ -408,7 +408,7 @@ decadal_layout = {
     'xaxis2': {
         'anchor': 'x2',
         'domain': [0., legx0],
-        'title': 'Year',
+        'title': 'Decade',
         'range': [2020, 2060],
         'showgrid': False,
         'tickvals': dec_yrs,
@@ -664,7 +664,7 @@ app.layout = html.Div(id='main-div', children=[
 
         html.Div(id='app-header', children=[
 
-            html.Div(style={'float': 'left', 'width': '32%', 'margin-top': '0px', 'margin-left': '1%', 'margin-right': '2%'}, children=[
+            html.Div(id='header-group-left', children=[
 
                 html.Div(style={'position': 'relative'}, children=[
                     html.Div('Location',
@@ -672,13 +672,12 @@ app.layout = html.Div(id='main-div', children=[
                         style={'margin': '0px 0px 2px 2px'}
                     ),
                     html.Div(
-                        className = 'help help-left',
+                        className = 'help help-short help-left',
                         children = [
                             dcc.Markdown('''
-* **Choose** from >90 coastal locations from around the United States and its island territories.
-    * These are locations where there is sufficient tide gauge data to make robust projections of future flood frequency.
+**Choose** from >90 coastal locations from around the United States and its island territories. These are locations where there is sufficient tide gauge data to make robust projections of future flood frequency.
 
-* **Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
+**Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
                             '''),
                             '\u003f\u20dd'
                         ]
@@ -693,10 +692,25 @@ app.layout = html.Div(id='main-div', children=[
                     clearable = False,
                     style = {'height': '37px', 'display': 'block', 'margin-right': '30px'}
                 ),
+                
+                html.Div(
+                    id = 'for-help',
+                    children = [
+                        html.Div('\u003f\u20dd',
+                            id = 'for-help-qmark',
+                        ),
+                        html.Div(
+                            id = 'for-help-buff',
+                        ),
+                        html.Div('For help and information, hover over the \u003f\u20dd symbols.',
+                            id = 'for-help-text',
+                        ),
+                    ],
+                ),
 
             ]),
 
-            html.Div(style={'float': 'left', 'width': '62%', 'margin-right': '1%'}, children = [
+            html.Div(id='header-group-right', children = [
 
                 html.Div(style = {'display': 'flex', 'justify-content': 'space-between', 'position': 'relative'}, children=[
 
@@ -718,13 +732,13 @@ app.layout = html.Div(id='main-div', children=[
                         ),
 
                         html.Div(
-                            className = 'help help-right',
+                            className = 'help help-short help-right',
                             children = [
                                 dcc.Markdown('''
-* **MHHW** stands for *Mean Higher High Water*
-    * *MHHW* is defined as the average highest observed water level per tidal day experienced at this location during the period 1983-2001.
-    * This specific 19-year period, 1983–2001, is the current National Tidal Datum Epoch (NTDE).
-    * More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
+**MHHW** stands for *Mean Higher High Water*
+* *Mean Higher High Water* is defined as the average highest observed water level per tidal day experienced at the selected location during the period 1983-2001.
+* This specific 19-year period, 1983–2001, is the current National Tidal Datum Epoch (NTDE).
+* More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
                                 '''),
                                 '\u003f\u20dd'
                             ]
@@ -753,65 +767,79 @@ app.layout = html.Div(id='main-div', children=[
                         children=[
 
                             html.Div(style={'position': 'relative'}, children=[
-                                html.Div('NOAA flooding thresholds for',
-                                    className = 'header-text',
-                                    style={'font-weight': 'bold'}
-                                ),
-                                html.Div(stations[uid_init]['name'],
-                                    id='noaa-thrsh-station',
-                                    className = 'header-text text-highlight',
-                                    style={'margin': '0px 1px 0px 4px'}
-                                ),
-                                html.Div(':',
-                                    className = 'header-text',
-                                    style={'font-weight': 'bold'}
-                                ),
+                                html.Div(className='min-mod-div', children=[
+                                    html.Div('NOAA flooding thresholds for',
+                                        className = 'header-text',
+                                        style={'font-weight': 'bold', 'margin-right': '4px', 'vertical-align': 'top'}
+                                    ),
+                                ]),
+                                html.Div(className='min-mod-div', children=[
+                                    html.Div(stations[uid_init]['name'],
+                                        id='noaa-thrsh-station',
+                                        className = 'header-text text-highlight',
+                                        style={'margin-right': '1px', 'vertical-align': 'top'}
+                                    ),
+                                    html.Div(':',
+                                        className = 'header-text',
+                                        style={'font-weight': 'bold', 'vertical-align': 'top'}
+                                    ),
+                                    html.Div(
+                                        className = 'help help-short help-right',
+                                        children = [
+                                            dcc.Markdown('''
+    **NOAA flooding thresholds** are based on a statistical relationship between mean tidal range and vulnerability to high water levels.
+
+    Details of this analysis can be found in a NOAA report (Sweet et al., 2018), which can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+                                            '''),
+                                            '\u003f\u20dd'
+                                        ]
+                                    ),
+                                ]),
+                            ]),
+                            html.Div(children=[
                                 html.Div(
-                                    className = 'help help-right',
+                                    id = 'min-div', 
+                                    className = 'min-mod-div', 
                                     children = [
-                                        dcc.Markdown('''
-* **NOAA flooding thresholds** are based on a statistical relationship between mean tidal range and vulnerability to high water levels.
-    * Details of this analysis can be found in a NOAA report (Sweet et al., 2018), which can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
-                                        '''),
-                                        '\u003f\u20dd'
+                                        html.Div('Minor:',
+                                            className = 'header-text',
+                                            style={'font-weight': 'bold'}
+                                        ),
+                                        html.Div(str(int(noaa_thrsh_init['minor'])),
+                                            id='noaa-thrsh-minor',
+                                            className = 'header-text',
+                                            style = {'margin': '0px 4px 0px 4px', 'color':
+                                                col[1], 'font-weight': 'bold'}
+                                        ),
+                                        html.Div('above MHHW',
+                                            className = 'header-text',
+                                        ),
                                     ]
                                 ),
-                            ]),
-
-                            html.Div(children=[
-                                html.Div('Minor:',
-                                    className = 'header-text',
-                                    style={'font-weight': 'bold'}
-                                ),
-                                html.Div(str(int(noaa_thrsh_init['minor'])),
-                                    id='noaa-thrsh-minor',
-                                    className = 'header-text',
-                                    style = {'margin': '0px 4px 0px 4px', 'color':
-                                        col[1], 'font-weight': 'bold'}
-                                ),
-                                html.Div('above MHHW',
-                                    className = 'header-text',
-                                ),
-                                html.Div('Moderate:',
-                                    className = 'header-text',
-                                    style={'margin-left': '30px',
-                                        'font-weight': 'bold'}
-                                ),
-                                html.Div(str(int(noaa_thrsh_init['moderate'])),
-                                    id='noaa-thrsh-moderate',
-                                    className = 'header-text',
-                                    style = {'margin': '0px 4px 0px 4px', 'color':
-                                        col[3], 'font-weight': 'bold'}
-                                ),
-                                html.Div('above MHHW',
-                                    className = 'header-text',
+                                html.Div(
+                                    className='min-mod-div', 
+                                    children=[
+                                        html.Div('Moderate:',
+                                            className = 'header-text',
+                                            style={'font-weight': 'bold'}
+                                        ),
+                                        html.Div(str(int(noaa_thrsh_init['moderate'])),
+                                            id='noaa-thrsh-moderate',
+                                            className = 'header-text',
+                                            style = {'margin': '0px 4px 0px 4px', 'color':
+                                                col[3], 'font-weight': 'bold'}
+                                        ),
+                                        html.Div('above MHHW',
+                                            className = 'header-text',
+                                        ),
+                                    ]
                                 ),
                             ]),
                         ]
                     ),
 
                     html.Div(
-                        style = {'display': 'inline-block'},
+                        id = 'unit-switcher-div',
                         children=[
 
                             dcc.RadioItems(
@@ -843,17 +871,38 @@ app.layout = html.Div(id='main-div', children=[
             dcc.Tab(label='Annual projections', value='ann_prjn', className='custom-tab', selected_className='custom-tab-selected', children=[
 
                 html.Div(id='projections-header', children=[
-                    dcc.Markdown('###### Flooding days during the 21st century', className='section-title'),
-                    html.Div('The graph below shows the number of days per year that sea level in ', className='module-text'),
-                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='module-text text-highlight'),
-                    html.Div('will exceed ', className='module-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='module-text text-highlight'),
-                    html.Div('above MHHW.', className='module-text'),
-                    html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
+                    html.Div(style={'position': 'relative'}, children=[
+                        dcc.Markdown('###### Flooding days during the 21st century', className='tab-title'),
+#                     html.Div(
+#                         className = 'help help-long help-left',
+#                         children = [
+#                             dcc.Markdown('''
+# Placeholder
+#                             '''),
+#                             '\u003f\u20dd'
+#                         ]
+#                     ),
+                    ]),
+                    html.Div('The graph below shows the number of days per year that sea level in ', className='tab-text'),
+                    html.Div(stations[uid_init]['name'], id='annual-header-station', className='tab-text text-highlight'),
+                    html.Div('is projected to exceed ', className='tab-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='annual-header-threshold', className='tab-text text-highlight'),
+                    html.Div('above MHHW.', className='tab-text'),
+                    html.Details([
+                        html.Summary(
+                            className = 'read-more-top',
+                            children = ['Read more']
+                        ),
+                        html.Div(
+                            className = 'read-more-content',
+                            children = ['Testing']
+                        )
+                    ]),
+                    html.Div(style={'clear': 'both', 'margin-bottom': '10px'}),
                 ]),
-
+                
                 html.Div(style = {'position': 'relative'}, children=[
-                    html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
+                    html.Div('Choose the local mean sea level projection(s) to use:', className='tab-text', style={'vertical-align': 'middle'}),
                     dcc.Dropdown(
                         id = 'projection-picker',
                         options = [
@@ -863,70 +912,80 @@ app.layout = html.Div(id='main-div', children=[
                         value = 'noaa',
                         searchable = False,
                         clearable = False,
-                        style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
+                        style = {'height': '35px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
                     ),
                     html.Div(
-                        className = 'help help-right',
+                        className = 'help help-short help-right',
                         children = [
                             dcc.Markdown('''
-* Choose a **localized mean sea level projection**
-    * It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
-    * Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
-    * Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
+The options provided here are **localized** mean sea level projections, which account for local and regional processes, such as *subsidence* (see [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence)) and *ice melt fingerprints* (see [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss)), that cause local sea level rise to differ from global average rise.
 
-* **Kopp et al. (2014) RCP8.5 scenario**
-    * Corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
-    * Accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
-    * The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+---
 
-* **NOAA Sea Level Rise Scenarios**
-    * Correspond to specific, plausible scenarios defined by the amount of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
-    * **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
-    * **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
-    * **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
-    * The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+See *More about local mean sea level projections* at the bottom of the page for more information about these options.
                             '''),
                             '\u003f\u20dd'
                         ]
                     ),
                 ]),
-                dcc.Graph(
-                    id = 'projections-fig',
-                    figure = {
-                        'data': noaa_traces(prjn_init),
-                        'layout': prjn_layout,
-                    },
-                    config = modebar_config
-                ),
-                html.Div(
-                    className = 'help help-graph help-left',
-                    children = [
-                        dcc.Markdown('''
-* **Choose** from >90 coastal locations from around the United States and its island territories.
-    * These are locations where there is sufficient tide gauge data to make robust projections of future flood frequency.
+                
+                html.Div(style = {'position': 'relative'}, children = [
+                    html.Div(
+                        className = 'help help-graph help-short help-left',
+                        style = {'zIndex': '100'},
+                        children = [
+                            dcc.Markdown('''
+**Click-and-drag** on the graph to zoom.
 
-* **Search** for locations or state abbreviations (e.g., NC, CA, etc.) by typing in the text box.
-                        '''),
-                        '\u003f\u20dd'
-                    ]
-                ),
-
+**Hover** in the region above the legend for more options, inlcuding the ability to save an image of the graph.
+                            '''),
+                            '\u003f\u20dd'
+                        ]
+                    ),
+                    dcc.Graph(
+                        id = 'projections-fig',
+                        figure = {
+                            'data': noaa_traces(prjn_init),
+                            'layout': prjn_layout,
+                        },
+                        config = modebar_config
+                    ),
+                ]),
+                
             ]),
 
             dcc.Tab(label='Decadal projections', value='dec_prjn', className='custom-tab', selected_className='custom-tab-selected', children=[
 
                 html.Div(id='decadal-header', children=[
-                    dcc.Markdown('###### Projections of flooding days by decade', className='section-title'),
-                    html.Div('The figure below shows the average and maximum number of days per year in future decades that sea level in ', className='module-text'),
-                    html.Div(stations[uid_init]['name'], id='decadal-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('will exceed ', className='module-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='decadal-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW. The total number of events per decade is the average multiplied by ten.', className='module-text'),
-                    html.Div(style={'clear': 'both', 'margin-bottom': '20px'}),
+                    html.Div(style={'position': 'relative'}, children=[
+                        dcc.Markdown('###### Projections of flooding days by decade', className='tab-title'),
+#                     html.Div(
+#                         className = 'help help-long help-left',
+#                         children = [
+#                             dcc.Markdown('''
+# Placeholder
+#                             '''),
+#                             '\u003f\u20dd'
+#                         ]
+#                     ),                        
+                    ]),
+                    html.Div('The graph below shows the *average* and *maximum* number of days per year in future decades that sea level in ', className='tab-text'),
+                    html.Div(stations[uid_init]['name'], id='decadal-header-station', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('will exceed ', className='tab-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='decadal-header-threshold', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('above MHHW. The total number of events per decade is the average multiplied by ten.', className='tab-text'),
+                    html.Details([
+                        html.Summary(
+                            className = 'read-more-top',
+                            children = ['Read more']
+                        ),
+                        html.Div('Testing')
+                    ]),                    
+                    html.Div(style={'clear': 'both', 'margin-bottom': '10px'}),
                 ]),
 
                 html.Div(style = {'position': 'relative'}, children=[
-                    html.Div('Based on local mean sea level projection:', className='module-text', style={'vertical-align': 'top'}),
+                    html.Div('Based on local mean sea level projection:', className='tab-text', style={'vertical-align': 'middle'}),
                     dcc.Dropdown(
                         id = 'decadal-lmslr-picker',
                         options = dec_lmslr_drpdwn,
@@ -936,60 +995,84 @@ app.layout = html.Div(id='main-div', children=[
                         style = {'height': '37px', 'width': '300px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
                     ),
                     html.Div(
-                        className = 'help help-right',
+                        className = 'help help-short help-right',
                         children = [
                             dcc.Markdown('''
-* Choose a **localized mean sea level projection**
-    * It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
-    * Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
-    * Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
+The options provided here are **localized** mean sea level projections, which account for local and regional processes, such as *subsidence* (see [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence)) and *ice melt fingerprints* (see [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss)), that cause local sea level rise to differ from global average rise.
 
-* **Kopp et al. (2014) RCP8.5 scenario**
-    * Corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
-    * Accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
-    * The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+---
 
-* **NOAA Sea Level Rise Scenarios**
-    * Correspond to specific, plausible scenarios defined by the amount of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
-    * **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
-    * **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
-    * **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
-    * The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+See *More about local mean sea level projections* at the bottom of the page for more information.
                             '''),
                             '\u003f\u20dd'
                         ]
                     ),
                 ]),
 
-                dcc.Graph(
-                    id = 'decadal-fig',
-                    figure = {
-                        'data': decadal_traces(dtot_init, dmax_init, dec_lmslr_init),
-                        'layout': decadal_layout,
-                    },
-                    config = modebar_config
-                ),
+                html.Div(style = {'position': 'relative'}, children = [
+                    html.Div(
+                        className = 'help help-graph help-short help-left',
+                        style = {'zIndex': '100'},
+                        children = [
+                            dcc.Markdown('''
+**Click-and-drag** on the graph to zoom.
 
+**Hover** in the region above the legend for more options, inlcuding the ability to save an image of the graph.
+                            '''),
+                            '\u003f\u20dd'
+                        ]
+                    ),
+                    dcc.Graph(
+                        id = 'decadal-fig',
+                        figure = {
+                            'data': decadal_traces(dtot_init, dmax_init, dec_lmslr_init),
+                            'layout': decadal_layout,
+                        },
+                        config = modebar_config
+                    ),
+                ]),
             ]),
 
             dcc.Tab(label='Analysis', value='analysis', className='custom-tab', selected_className='custom-tab-selected', children=[
 
                 html.Div(id='firstyear-header', children=[
-                    dcc.Markdown('###### Question \#1', className='section-title'),
-                    html.Div('What year will ', className='module-text'),
-                    html.Div(stations[uid_init]['name'], id='firstyear-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('first experience', className='module-text'),
+                    html.Div(style={'position': 'relative'}, children=[
+                        dcc.Markdown('###### Question \#1', className='tab-title'),
+#                     html.Div(
+#                         className = 'help help-long help-left',
+#                         children = [
+#                             dcc.Markdown('''
+# Placeholder
+#                             '''),
+#                             '\u003f\u20dd'
+#                         ]
+#                     ),                        
+                    ]),
+                    html.Div('What year will ', className='tab-text'),
+                    html.Div(stations[uid_init]['name'], id='firstyear-header-station', className='tab-text', style={'color': col[0], 'font-weight': 'bold', 'vertical-align': 'middle'}),
+                    html.Div('first experience', className='tab-text'),
                     dcc.Dropdown(
                         id = 'numxd-picker',
                         options = fyr_cnts_drpdwn,
                         value = fyrc_init,
                         searchable = False,
                         clearable = False,
-                        style = {'height': '37px', 'width': '50px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
+                        style = {'height': '35px', 'width': '50px', 'display': 'inline-block', 'margin': '-5px 5px 0px 0px'}
                     ),
-                    html.Div('days with sea level exceeding', className='module-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='firstyear-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW?', className='module-text')
+                    html.Div('days with sea level exceeding', className='tab-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='firstyear-header-threshold', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('above MHHW?', className='tab-text'),
+                    html.Details([
+                        html.Summary(
+                            className = 'read-more-top',
+                            style = {'margin-top': '-10px'},
+                            children = ['Read more']
+                        ),
+                        html.Div(
+                            className = 'read-more-content',
+                            children = ['Testing']
+                        )
+                    ]),                    
                 ]),
 
                 dcc.Graph(
@@ -1002,12 +1085,31 @@ app.layout = html.Div(id='main-div', children=[
                 ),
 
                 html.Div(id='occ2chrnc-header', children=[
-                    dcc.Markdown('###### Question \#2', className='section-title'),
-                    # html.Div('For ', className='module-text'),
-                    # html.Div(stations[uid_init]['name'], id='occ2chrnc-header-station', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('When will the frequency of exceedances above the', className='module-text'),
-                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='occ2chrnc-header-threshold', className='module-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('threshold transition from occasional to chronic?', className='module-text')
+                    html.Div(style={'position': 'relative'}, children=[
+                        dcc.Markdown('###### Question \#2', className='tab-title'),
+#                     html.Div(
+#                         className = 'help help-long help-left',
+#                         children = [
+#                             dcc.Markdown('''
+# Placeholder
+#                             '''),
+#                             '\u003f\u20dd'
+#                         ]
+#                     ),                        
+                    ]),
+                    html.Div('When will the frequency of exceedances above the', className='tab-text'),
+                    html.Div(str(int(slider_thrsh_init)) + ' cm', id='occ2chrnc-header-threshold', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
+                    html.Div('threshold transition from occasional to chronic?', className='tab-text'),
+                    html.Details([
+                        html.Summary(
+                            className = 'read-more-top',
+                            children = ['Read more']
+                        ),
+                        html.Div(
+                            className = 'read-more-content',
+                            children = ['Testing']
+                        )
+                    ]),                    
                 ]),
 
                 dcc.Graph(
@@ -1027,6 +1129,31 @@ app.layout = html.Div(id='main-div', children=[
             'background': '#efefef'
         }),
     ]),
+    
+    html.Details([
+        html.Summary('More about local mean sea level projections'),
+        html.Div(children=[
+            dcc.Markdown('''
+**Choose** a *localized* mean sea level projection.
+* It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
+* Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
+* Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
+* Two types of localized projections are available in this tool. They are described below.
+---
+**Kopp et al. (2014) RCP8.5 scenario**
+* This projection corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
+* It accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
+* The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+---
+**NOAA Sea Level Rise Scenarios**
+* These scenarios correspond to plausible sea level scenarios related to specific amounts of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
+* **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
+* **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
+* **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
+* The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+            ''')
+        ])
+    ])
 ])
 
 # ---------------------------------------------------------------------------
@@ -1085,11 +1212,18 @@ def update_threshold_slider_marks(selected_station, units):
     return slider_marks
 
 @app.callback(
-    dash.dependencies.Output('noaa-thrsh-station', 'children'),
+    [dash.dependencies.Output('noaa-thrsh-station', 'children'),
+    dash.dependencies.Output('threshold-slider', 'value')],
     [dash.dependencies.Input('station-picker', 'value')]
     )
 def update_annual_projections_location_text(selected_station):
-    return str(stations[selected_station]['name'])
+    
+    fname = './json/' + selected_station + '/' \
+        + 'thresholds.json'
+    with open(fname, 'r') as f:
+        noaa_thrsh = json.load(f)
+        
+    return str(stations[selected_station]['name']), int(noaa_thrsh['minor'])
 
 @app.callback(
     [dash.dependencies.Output('noaa-thrsh-minor', 'children'),

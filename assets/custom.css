@@ -1,5 +1,7 @@
+/* ------------------------------ */
+
 #main-div {
-  min-width: 800px;
+  min-width: 600px;
   max-width: 1000px;
   margin: auto;
   color: #666666
@@ -9,21 +11,12 @@
   margin: 30px 0px 10px 0px;
 }
 
-/* .page-header-logo {
-  height: 50px;
-  float: right;
-  margin: 10px 0px 0px 7px;
-} */
-
-/* #app-container {
-  border: 1px solid #d6d6d6;
-  border-radius: 10px;
-} */
+/* ------------------------------ */
 
 #app-header {
   display: block;
   overlfow: auto;
-  padding: 25px 0px 30px 0px;
+  padding: 25px 0px 5px 0px;
 }
 #app-header .rc-slider-track {
   background-color: #777777 !important;
@@ -35,11 +28,202 @@
   border-color: #777777 !important;
 }
 
-.section-title h6 {
-  margin: 0px 0px 5px 0px;
-  color: #1f77b4;
+#header-group-left {
+  float: left;
+  width: 32%;
+  margin-top: 0px;
+  margin-right: 1%;
+}
+#header-group-right {
+  float: left;
+  width: 66%; 
+  /* margin-right: 10px; */
+}
+
+/* ------------------------------ */
+
+.text-highlight {
+  color: #1f77b4 !important;
   font-weight: bold;
 }
+
+.header-title {
+  display: inline-block;
+  color: #777777;
+  font-size: 20px;
+}
+
+.header-text {
+  display: inline-block;
+  color: #777777;
+  font-size: 14px;
+}
+
+/* ------------------------------ */
+/* The following prevents slider text marks from being selected as text, which made UI experience awkward at times. */
+
+.rc-slider-mark-text {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Opera and Firefox */
+}
+
+/* ------------------------------ */
+
+.threshold-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 53px;
+  vertical-align: top;
+}
+
+.min-mod-div {
+  display: inline;
+  float: left;
+}
+.min-mod-div .help {
+  margin-top: -4px;
+}
+#min-div {
+  margin-right: 40px;
+}
+
+/* ------------------------------ */
+
+#unit-switcher-div {
+  display: inline-block;
+  min-width: 105px;
+  margin: auto 0px auto 10px;
+}
+#unit-switcher-div label {
+  white-space:nowrap;
+}
+
+/* ------------------------------ */
+
+#for-help {
+  margin: 25px 30px 0 0;
+  padding: 10px 5px 8px 5px;
+  background-color: #efefef;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  font-size: 14px;
+  /* font-weight: bold; */
+  vertical-align: top;
+}
+/* #for-help div {
+  display: inline-block;
+  vertical-align: top;
+} */
+#for-help-qmark {
+  float: left;
+  font-size: 40px;
+  margin: -10px 5px 20px 5px;
+  height: 100%;
+  width: 45px;
+}
+#for-help-buff {
+  float: right;
+}
+#for-help-text {
+  float: none;
+  /* width: 230px; */
+}
+
+/* ------------------------------ */
+
+.read-more-top {
+  color: #1f77b4 !important;
+  font-weight: bold;
+}
+.read-more-top:focus {
+  outline-style: none;
+  outline-width: 0px;
+}
+
+.read-more-content {
+  padding-top: 10px;
+}
+
+/* ------------------------------ */
+
+.help {
+  display: inline-block;
+  margin: 0px 0px 0px 4px;
+  color: #999999;
+  font-size: 20px;
+}
+.help-graph {
+  position: absolute;
+  top: 52px;
+  left: 100px;
+}
+.help:hover {
+  color: #1f77b4 !important;
+}
+.help div {
+  position: absolute;
+  top: 30px;
+  display: none;
+  z-index: 10;
+  padding: 1em 1.5em 0.5em 1.5em;
+  border: 1px solid #777777;
+  border-radius: 6px;
+  background: white;
+  box-shadow: 4px 4px 10px #999999;
+  font-size: 14px;
+  visibility: hidden; opacity:0;
+  -webkit-transition:
+    visibility 2s linear,
+    opacity 2s linear;
+  transition:
+    visibility 2s linear,
+    opacity 2s linear;
+  }
+.help:hover div {
+  z-index: 200;
+  display: inline-block;
+  visibility: visible; opacity:1;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  color: #777777;
+  }
+.help-left div {
+  left: 0px;
+}
+.help-right div {
+  right: 0px;
+}
+.help-short div {
+  max-width: 400px;
+  min-width: 400px;
+}
+.help-long div {
+  width: 100%;
+  max-width: 700px;
+}
+.help div ul ul {
+  margin-top: 5px;
+}
+.help li {
+  padding-left: 15px;
+}
+.help hr {
+  margin: 1em 0;
+}
+.help a {
+  color: #1f77b4;
+  text-decoration: none;
+}
+.help strong {
+  color: #1f77b4;
+}
+
+/* ------------------------------ */
 
 #tabs-container {
   margin: 0px 0px;
@@ -67,100 +251,33 @@
   border-bottom-right-radius: 10px;
 }
 
-#firstyear-fig {
-  width: 100%;
-  margin: auto;
+.tab-title {
+  display: inline-block;
 }
-#firstyear-header {
-  height: 80px;
-}
-
-.text-highlight {
-  color: #1f77b4 !important;
+.tab-title h6 {
+  display: inline-block;
+  margin: 0px 0px 5px 0px;
+  color: #1f77b4;
   font-weight: bold;
 }
 
-.header-title {
-  display: inline-block;
-  color: #777777;
-  font-size: 20px;
-}
-
-.header-text {
-  display: inline-block;
-  color: #777777;
-  font-size: 14px;
-}
-
-.module-text {
+.tab-text {
   display: inline-block;
   height: 25px;
   margin-right: 5px;
 }
 
-.help {
-  display: inline-block;
-  margin: 0px 0px 0px 4px;
-  color: #999999;
-  font-size: 20px;
-}
-.help-graph {
-  position: absolute;
-}
-.help:hover {
-  color: #1f77b4 !important;
-}
-.help div {
-  position: absolute;
-  top: 30px;
-  display: none;
-  z-index: 10;
-  padding: 10px 15px 5px 15px;
-  max-width: 0px;
-  border: 1px solid #777777;
-  border-radius: 6px;
-  background: white;
-  box-shadow: 4px 4px 10px #999999;
-  font-size: 14px;
-  visibility: hidden; opacity:0;
-  -webkit-transition:
-    visibility 2s linear,
-    opacity 2s linear;
-  transition:
-    visibility 2s linear,
-    opacity 2s linear;
-  }
-.help-left div {
-}
-.help-right div {
-  right: -30px;
-}
-.help div ul ul {
-  margin-top: 5px;
-}
-.help:hover div {
-  color: #777777;
-  display: inline-block;
-  max-width: 400px;
-  min-width: 400px;
-  visibility: visible; opacity:1;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
-  }
-.help a {
-  color: #1f77b4;
-  text-decoration: none;
-}
-.help strong {
-  color: #1f77b4;
-}
+/* ------------------------------ */
 
-.threshold-info {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 55px;
-  vertical-align: top;
+#firstyear-fig {
+  width: 100%;
+  margin: auto;
 }
+/* #firstyear-header {
+  height: 80px;
+} */
+
+/* ------------------------------ */
 
 
 
