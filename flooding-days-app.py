@@ -54,7 +54,7 @@ fyr_cnts_drpdwn = [{'label':n, 'value':n} for n in fyr_cnts]
 # initialize
 
 fyrc_init = str(50)
-uid_init = '8658120'
+uid_init = '1612340'
 
 fname = './json/' + uid_init + '/' + 'thresholds.json'
 with open(fname, 'r') as f:
@@ -692,7 +692,7 @@ app.layout = html.Div(id='main-div', children=[
                     clearable = False,
                     style = {'height': '37px', 'display': 'block', 'margin-right': '30px'}
                 ),
-                
+
                 html.Div(
                     id = 'for-help',
                     children = [
@@ -735,10 +735,11 @@ app.layout = html.Div(id='main-div', children=[
                             className = 'help help-short help-right',
                             children = [
                                 dcc.Markdown('''
-**MHHW** stands for *Mean Higher High Water*
-* *Mean Higher High Water* is defined as the average highest observed water level per tidal day experienced at the selected location during the period 1983-2001.
-* This specific 19-year period, 1983–2001, is the current National Tidal Datum Epoch (NTDE).
-* More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
+**MHHW** stands for *Mean Higher High Water*, which is defined as the average of the highest observed water level at the selected location on each tidal day during the period 1983-2001.
+
+This specific 19-year period, 1983–2001, is the current National Tidal Datum Epoch (NTDE).
+
+More information [**here**](https://tidesandcurrents.noaa.gov/datum_options.html).
                                 '''),
                                 '\u003f\u20dd'
                             ]
@@ -787,9 +788,9 @@ app.layout = html.Div(id='main-div', children=[
                                         className = 'help help-short help-right',
                                         children = [
                                             dcc.Markdown('''
-    **NOAA flooding thresholds** are based on a statistical relationship between mean tidal range and vulnerability to high water levels.
+**NOAA flooding thresholds** are based on a statistical relationship between mean tidal range and vulnerability to high water levels.
 
-    Details of this analysis can be found in a NOAA report (Sweet et al., 2018), which can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+Details of this analysis can be found in a NOAA report (Sweet et al., 2018), which can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
                                             '''),
                                             '\u003f\u20dd'
                                         ]
@@ -798,8 +799,8 @@ app.layout = html.Div(id='main-div', children=[
                             ]),
                             html.Div(children=[
                                 html.Div(
-                                    id = 'min-div', 
-                                    className = 'min-mod-div', 
+                                    id = 'min-div',
+                                    className = 'min-mod-div',
                                     children = [
                                         html.Div('Minor:',
                                             className = 'header-text',
@@ -817,7 +818,7 @@ app.layout = html.Div(id='main-div', children=[
                                     ]
                                 ),
                                 html.Div(
-                                    className='min-mod-div', 
+                                    className='min-mod-div',
                                     children=[
                                         html.Div('Moderate:',
                                             className = 'header-text',
@@ -895,12 +896,18 @@ app.layout = html.Div(id='main-div', children=[
                         ),
                         html.Div(
                             className = 'read-more-content',
-                            children = ['Testing']
+                            children = [
+                                dcc.Markdown('''
+These projections are based on unique, location-specific relationships between annual mean sea level, the top 1% of astronomical tides in each year, and annual counts of threshold exceedances. See *Details of the methodology* at the bottom of the page for additional information.
+
+An interesting and essential feature of these graphs is that the number of flooding days per year does not necessarily increase smoothly in time. In most cases, there are inflection points where the frequency of flooding days increases rapidly, which may be useful when establishing planning horizons. In many locations around the United States and its territories, there are sharp inflection points around the mid-2030s that are related to the interaction between accelerating sea level rise due to climate change and a long-term, 18.6-year cycle in the amplitude of astronomical tides. For clear examples of this effect, check out the flooding days projections for Honolulu, HI, Friday Harbor, WA, and St. Petersburg, FL.
+                                ''')
+                            ]
                         )
                     ]),
                     html.Div(style={'clear': 'both', 'margin-bottom': '10px'}),
                 ]),
-                
+
                 html.Div(style = {'position': 'relative'}, children=[
                     html.Div('Choose the local mean sea level projection(s) to use:', className='tab-text', style={'vertical-align': 'middle'}),
                     dcc.Dropdown(
@@ -922,13 +929,13 @@ The options provided here are **localized** mean sea level projections, which ac
 
 ---
 
-See *More about local mean sea level projections* at the bottom of the page for more information about these options.
+See *About local mean sea level projections* at the bottom of the page for more information about these options.
                             '''),
                             '\u003f\u20dd'
                         ]
                     ),
                 ]),
-                
+
                 html.Div(style = {'position': 'relative'}, children = [
                     html.Div(
                         className = 'help help-graph help-short help-left',
@@ -937,7 +944,7 @@ See *More about local mean sea level projections* at the bottom of the page for 
                             dcc.Markdown('''
 **Click-and-drag** on the graph to zoom.
 
-**Hover** in the region above the legend for more options, inlcuding the ability to save an image of the graph.
+**Hover** over the graph, and more options will appear above the legend, inlcuding the ability to save an image.
                             '''),
                             '\u003f\u20dd'
                         ]
@@ -951,7 +958,7 @@ See *More about local mean sea level projections* at the bottom of the page for 
                         config = modebar_config
                     ),
                 ]),
-                
+
             ]),
 
             dcc.Tab(label='Decadal projections', value='dec_prjn', className='custom-tab', selected_className='custom-tab-selected', children=[
@@ -967,20 +974,26 @@ See *More about local mean sea level projections* at the bottom of the page for 
 #                             '''),
 #                             '\u003f\u20dd'
 #                         ]
-#                     ),                        
+#                     ),
                     ]),
-                    html.Div('The graph below shows the *average* and *maximum* number of days per year in future decades that sea level in ', className='tab-text'),
+                    html.Div('The graph below shows the average and maximum number of days per year in future decades that sea level in ', className='tab-text'),
                     html.Div(stations[uid_init]['name'], id='decadal-header-station', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
                     html.Div('will exceed ', className='tab-text'),
                     html.Div(str(int(slider_thrsh_init)) + ' cm', id='decadal-header-threshold', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
-                    html.Div('above MHHW. The total number of events per decade is the average multiplied by ten.', className='tab-text'),
+                    html.Div('above MHHW. The total number of events per decade can be calculated by multiplying the average by ten.', className='tab-text'),
                     html.Details([
                         html.Summary(
                             className = 'read-more-top',
                             children = ['Read more']
                         ),
-                        html.Div('Testing')
-                    ]),                    
+                        html.Div(
+                            className = 'read-more-content',
+                            children = [
+                                dcc.Markdown('''
+There is a tendency for threshold exceedances in sea level to cluster together in a small number of severe years rather than being evenly distributed in time (e.g., [Thompson et al., 2019](https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JC014741)). Thus, planning for the *typical* or *average* year can substantially underestimate the number of events experienced in the occasional&mdash;*yet inevetible*&mdash;severe year. Depending on the combination of location, threshold, and decade of interest, the worst year of a decade my experience up to five times as many flooding days as the average year!
+                                ''')
+                            ]
+                        )                    ]),
                     html.Div(style={'clear': 'both', 'margin-bottom': '10px'}),
                 ]),
 
@@ -1002,7 +1015,7 @@ The options provided here are **localized** mean sea level projections, which ac
 
 ---
 
-See *More about local mean sea level projections* at the bottom of the page for more information.
+See *About local mean sea level projections* at the bottom of the page for more information.
                             '''),
                             '\u003f\u20dd'
                         ]
@@ -1017,7 +1030,7 @@ See *More about local mean sea level projections* at the bottom of the page for 
                             dcc.Markdown('''
 **Click-and-drag** on the graph to zoom.
 
-**Hover** in the region above the legend for more options, inlcuding the ability to save an image of the graph.
+**Hover** over the graph, and more options will appear above the legend, inlcuding the ability to save an image.
                             '''),
                             '\u003f\u20dd'
                         ]
@@ -1046,7 +1059,7 @@ See *More about local mean sea level projections* at the bottom of the page for 
 #                             '''),
 #                             '\u003f\u20dd'
 #                         ]
-#                     ),                        
+#                     ),
                     ]),
                     html.Div('What year will ', className='tab-text'),
                     html.Div(stations[uid_init]['name'], id='firstyear-header-station', className='tab-text', style={'color': col[0], 'font-weight': 'bold', 'vertical-align': 'middle'}),
@@ -1070,9 +1083,13 @@ See *More about local mean sea level projections* at the bottom of the page for 
                         ),
                         html.Div(
                             className = 'read-more-content',
-                            children = ['Testing']
+                            children = [
+                                dcc.Markdown('''
+Due to the tendency for threshold exceedances to cluster together in a small number of severe years (e.g., [Thompson et al., 2019](https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JC014741)), a target number of events per year could occur in a single isolated year long before that number becomes the norm. This module allows planners to identify the first year (with associated uncertainty) that a given number of flooding days will occur, which may be useful for defining planning horizons.
+                                ''')
+                            ]
                         )
-                    ]),                    
+                    ]),
                 ]),
 
                 dcc.Graph(
@@ -1095,7 +1112,7 @@ See *More about local mean sea level projections* at the bottom of the page for 
 #                             '''),
 #                             '\u003f\u20dd'
 #                         ]
-#                     ),                        
+#                     ),
                     ]),
                     html.Div('When will the frequency of exceedances above the', className='tab-text'),
                     html.Div(str(int(slider_thrsh_init)) + ' cm', id='occ2chrnc-header-threshold', className='tab-text', style={'color': col[0], 'font-weight': 'bold'}),
@@ -1107,9 +1124,15 @@ See *More about local mean sea level projections* at the bottom of the page for 
                         ),
                         html.Div(
                             className = 'read-more-content',
-                            children = ['Testing']
+                            children = [
+                                dcc.Markdown('''
+The length of time between initial, isolated occurences of a given disruptive flood level and routine, chronic disruption is a key variable in planning for the impacts of sea level rise. In this module, *occasional* exceedance is defined to be when 1 in 10 years experiences more than 10 flooding days. *Chronic* excecedance is defined to be when 9 in 10 years experience more than 50 exceedance days, which also roughly corresponds to when 6 in 10 years experience more than 100 exceedance days.
+
+The results of these calculations are concerning, as the transition from occasional to chronic exceedance often occurs rapidly in just 10-15 years, with transitions occurring in less than a decade during the second half of the century. The time-scale of these transitions is essential for planning purposes due to the long lead times needed to develop and fund large-scale infrastructure projects for mitigating the impacts of sea level rise. Thus, it may not be sufficient to wait for a given threshold to be occasionally exceeded before beginning preparedness efforts to mitigate against chronic exceedance.
+                                ''')
+                            ]
                         )
-                    ]),                    
+                    ]),
                 ]),
 
                 dcc.Graph(
@@ -1129,31 +1152,200 @@ See *More about local mean sea level projections* at the bottom of the page for 
             'background': '#efefef'
         }),
     ]),
-    
-    html.Details([
-        html.Summary('More about local mean sea level projections'),
-        html.Div(children=[
-            dcc.Markdown('''
-**Choose** a *localized* mean sea level projection.
-* It is important to use localized sea level projections to account for local and regional processes, such as *subsidence* and *ice melt fingerprints*, that cause local sea level rise to differ from global average rise.
-* Read more about subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
+
+    # -----------------------------------------------------------------------
+
+    html.Details(
+        className = 'more-module',
+        children = [
+            html.Summary(
+                className = 'read-more-top',
+                children = ['Details of the methodology']
+            ),
+            html.Div(
+                className = 'read-more-content',
+                children=[
+                    dcc.Markdown('''
+---
+                    '''),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
+**Background**
+
+Most people are aware that some high tides are higher than others. The [spring-neap cycle](https://oceanservice.noaa.gov/facts/springtide.html), for example, is related to the alignment of the earth, moon, and sun, and causes tidal amplitude (i.e., the difference between high and low tide) to vary over a lunar month (about 29.5 days). Most people are also aware that sea level rise will cause the highest tides to get even higher and cause flooding thresholds to be exceeded more often (**Figure&nbsp;1**).
+
+However, there are myriad factors across time and space scales that affect how often the ocean height will exceed a given threshold. For example, tidal amplitude does not just vary on a quasi-monthly basis due to the spring-neap cycle; it also varies from season to season and year to year. More specifically, there are substantial 4.4- and 18.6-year cycles in the tides with important implications for the frequency of coastal flooding (e.g., [Haigh et al., 2011](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2010JC006645)). Ocean dynamics also play a role by raising or lowering mean sea level over periods of months or years, with phenomena such as El Ni&ntilde;o (e.g., [Enfield and Allen, 1980](https://journals.ametsoc.org/doi/abs/10.1175/1520-0485%281980%29010%3C0557%3AOTSADO%3E2.0.CO%3B2)) and changes in the strength of the Gulf Stream (e.g., [Sweet et al., 2009](https://tidesandcurrents.noaa.gov/publications/EastCoastSeaLevelAnomaly_2009.pdf)) being two leading factors along the Pacific and Atlantic coastlines of the U.S., respectively. Even without these longer-term fluctuations, changes in storminess or short-term chaotic ocean variability (i.e., ocean "weather") can lead to differences in flooding frequency from one year to the next.
+
+All together, it is possible for multiple factors to "collide" and produce "bursts" of flooding events (e.g., the state-wide, repeated coastal flooding in Hawai`i during summer 2017 discussed by [Thompson et al., 2019](https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JC014741)). This explains why there are occasional, severe years with many events while other years epxerience few or none at all.
+
+The purpose of this tool is to produce *probablistic* projections of flood frequency in the future that provide information about the full range of possibilities for a given year, including the potential for the occasional&mdash;yet inevitable&mdash;severe years. The projections leverage the predictability inherent in certain contributions (e.g., tidal amplitude and climate-change-induced sea level rise) and use statistical methods to account for everything else. The projections are *probabilistic*, because rather than producing a single, most-likely number of flooding days for a future year, these projections produce a range of plausible numbers with probabilities assigned to each possibility or range of possibilities.
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='effect-of-slr-img',
+                            children=[
+                                html.Img(
+                                    src = './assets/effect_of_slr.png'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 1:** Schematic showing the effect of sea level rise on flooding events. For the same flooding threshold, sea level rise will cause the highest ocean levels to get higher and flooding thresholds to be exceeded more often.
+                                '''])
+                            ]
+                        ),
+                    ]),
+                    dcc.Markdown('''
+---
+                    '''),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
+**Methodology**
+
+The methodology used to produce the projections in this tool is based on the method of [Thompson et al. (2019)](https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JC014741), which was developed to model future changes in the frequency of high-tide flooding in Honolulu, HI. The method has been generalized and applied to more than 90 locations around the U.S. and its territories for which there is sufficient tide gauge data.
+
+The machinery of the projection algorithm is based around the idea that the probability mass distribution governing the number of threshold exceedances in a given year can be parameterized as a function of the height difference between the threshold of interest and the height of the highest tides of the year. For example, if the threshold is far above the height of the highest tides, then the probability of exceedance is low, and one would expect the probability of zero events to be high with small probabilities of multiple events (**Figure&nbsp;2a**). Alternatively, if the threshold is relatively close to the height of the highest tides, one would expect high probabilities of multiple events with lower probabilities of zero and many events (Figure 2b). In practice, the method employs the flexible [beta-binomial probability mass distribution](https://en.wikipedia.org/wiki/Beta-binomial_distribution) to represent the varying shapes of the distribution as the height of the highest tides varies relative to the height of the threshold. The parameters of the beta-binomial distribution are estimated as functions of the difference between threshold and highest tides on a location-specific basis via an analysis of available tide gauge data.
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='distributions-img',
+                            children=[
+                                html.Img(
+                                    src = './assets/distributions.png'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 2:** Hypothetical probability mass distributions for the number of flooding days per year for two scenarios. (top) The highest astronomical tides are far below the flooding threshold, which means the highest probability is that no flooding days occur. (bottom) The highest astronomical tides are near the flooding threshold, which implies high probability of multiple flooding days.
+                                '''])
+                            ]
+                        ),
+                    ]),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
+Once the parameters of the distribution are established, projections of flooding days requires projections of the highest tides of the year. We define the highest tides of the year as the annual 99th percentile of astronomical tidal variability PLUS annual mean sea level. The latter acts to change the baseline of the tidal variability similar to **Figure&nbsp;1**. In order to project this quantity, we use three ingredients:
+
+* **Ensemble projection of astronomical tidal variability.** This represents an improvement over the methods of [Thompson et al. (2019)](https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JC014741), which assumed deterministic, stationary tidal constituents. The ensemble tidal projections employed here are based on [Gaussian process](https://en.wikipedia.org/wiki/Gaussian_process) representations of periodic and stochastic variations in the amplitude and phase of major tidal constituents. These projections account for co-variability between certain constituents and mean sea level, as well as trends in tidal amplitude related to non-climatic factors.
+
+* **Ensemble projections of local mean sea level trends and acceleration**. It is essential to use *local* mean sea level projections that incorporate estimates of local and regional vertical land motion, as well as spatial differences in the response of ocean surface height to climate change (e.e., ice melt fingerprints). See the section below *About local mean sea level projections* for more information on the specific projections used.
+
+* **Ensemble projections of stochastic variability in annual mean sea level**. These projections are based on [Gaussian process](https://en.wikipedia.org/wiki/Gaussian_process) representations of unpredictable variations in local annual mean sea level primarily related to atmosphere-ocean dynamics.
+
+The schematic in **Figure&nbsp;3** illustrates how these ingredients are combined into an ensemble prediction of the 99th percentile of tidal height during the 21st century. When further combined with a user defined threshold and parameterizations of the beta-binomial probability mass distribution tuned using tide gauge data, these components produce a probabilistic estimate for the number of flooding days above the threshold in each year.
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='schematic-img',
+                            children=[
+                                html.Img(
+                                    src = './assets/schematic.png'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 3:** Schematic illustrating how various ingredients are combined into an probabilistic projections for the number of flooding days above the threshold during each year of the 21st century.
+                                '''])
+                            ]
+                        ),
+                    ]),
+                ]
+            )
+        ]
+    ),
+
+    # -----------------------------------------------------------------------
+
+    html.Details(
+        className = 'more-module',
+        children = [
+            html.Summary(
+                className = 'read-more-top',
+                children = ['About local mean sea level projections']
+            ),
+            html.Div(
+                className = 'read-more-content',
+                children=[
+                    dcc.Markdown('''
+---
+                    '''),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
+The flooding days projections are built on top of projections of local mean sea level. It is absolutely critical to use *localized* mean sea level projections in order to account for local and regional processes such as *ocean dynamics*, *land subsidence*, and *ice melt fingerprints*—all of which cause local sea level rise to differ from the global average rise.
+
+For example, the map in Figure 1 shows twenty-year trends in ocean height across the global ocean from 1993 to 2016. There are large spatial differences with some areas in the western Pacific and Southern Oceans experiencing rates of sea level rise in excess of 1 centimeter per year, while other regions experienced little change or even sea level fall. A majority of the differences in this map are due to ocean-atmosphere dynamics and redistribution of heat in the ocean, but there are a variety of processes that must be considered when making projections for the 21st century.
+* Read more about the role of ocean dynamics [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ocean-dynamics).
+* Read more about land subsidence [**here**] (https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/subsidence).
 * Read more about ice melt fingerprints [**here**](https://sealevel.nasa.gov/understanding-sea-level/regional-sea-level/ice-mass-loss).
-* Two types of localized projections are available in this tool. They are described below.
+
+Two types of local mean sea level projections are available in this tool. They are described below.
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='alt-trend-map-img',
+                            children=[
+                                html.Img(
+                                    src = 'https://sealevel.nasa.gov/internal_resources/185'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 1:** Twenty-year trends in ocean height across the global ocean from 1993 to 2016. The grids and figure were produced at the Jet Propulsion Laboratory (JPL), California Institute of Technology, under the NASA MEaSUREs program (version JPL 1603). [Data access from PO.DAAC](https://podaac.jpl.nasa.gov/dataset/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1609).
+                                '''])
+                            ]
+                        ),
+                    ]),
+
+                    dcc.Markdown('''
 ---
+                    '''),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
 **Kopp et al. (2014) RCP8.5 scenario**
-* This projection corresponds to "business as usual" emmisions of greenhouse gases during the 21st century.
-* It accounts for many sources of local and global uncertainty and gives a realistic view of how uncertainty grows in time.
-* The details of this projection are in the journal *Earth's Future*. The article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+
+The Kopp et al. projections employed here correspond to the "business as usual" scenario (i.e., the IPCC's RCP8.5 scenario) of greenhouse gas emissions during the 21st century. The global mean sea level projection from Kopp et al. is shown in Figure 2, which gives a 90% probability range for global mean sea level in 2100 under RCP8.5 of roughly 0.5–1.2 meters with a 50th percentile around 0.8 meters.
+
+The *local* mean sea level projections corresponding to this amount of global rise are also probabilistic in nature and account for many sources of local and global uncertainty, giving a realistic view of how uncertainty in local sea level grows in time.
+
+The method used to generate these projections is detailed in an open-access article published in the journal *Earth's Future*. A link to the article is   [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt86_PaP_of_HTFlooding.pdf).
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='kopp-scenarios-img',
+                            children=[
+                                html.Img(
+                                    src = 'https://wol-prod-cdn.literatumonline.com/cms/attachment/e7f78669-5ca1-4a5c-95a4-ebd3b11c3161/eft237-fig-0003-m.jpg'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 2:** Probabilistic global mean sea level rise scenarios from [Kopp et al. (2014)](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2014EF000239) for the three RCPs defined in the IPCC AR5 report. Heavy = median, dashed = 5th–95th percentile, dotted = 0.5th–99.5th percentiles.
+                                '''])
+                            ]
+                        ),
+                    ]),
+                    dcc.Markdown('''
 ---
+                    '''),
+                    html.Div(className='more-row', children=[
+                        dcc.Markdown(className='more-text', children=['''
 **NOAA Sea Level Rise Scenarios**
-* These scenarios correspond to plausible sea level scenarios related to specific amounts of global mean sea level rise (GMSL) experienced by the year 2100. There are six NOAA scenarios ranging from *low* to *extreme*. Here we show results for the three *intermediate* scenarios.
+
+These scenarios correspond to plausible sea-level-rise scenarios related to specific amounts of global mean sea level rise (GMSL) experienced by the year 2100. Because they are related to specific end points for GMSL rise by 2100, uncertainty in the projections of flooding days does not grow in time when one of the NOAA scenarios is chosen. The advantage of these scenarios is that it allows the user to define their individual risk tolerance by choosing a specific scenario and then assess impacts based on the implications of that choice (e.g., by looking at the outcomes in this tool).
+
+There are six NOAA scenarios ranging from *low* to *extreme* (Figure 3). Only the three *intermediate* scenarios are used in this tool:
 * **Intermediate-low scenario:** 0.5&nbsp;meters (1&nbsp;foot, 8&nbsp;inches) of GMSL rise by 2100.
 * **Intermediate scenario:** 1.0&nbsp;meters (3&nbsp;feet, 3&nbsp;inches) of GMSL rise by 2100.
 * **Intermediate-high scenario:** 1.5&nbsp;meters (4&nbsp;feet,&nbsp;11 inches) of GMSL rise by 2100.
-* The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
-            ''')
-        ])
-    ])
+
+The method used to create these scenarios is detailed in a NOAA report (Sweet et al., 2017). The report can be accessed [**here**](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf).
+                        ''']),
+                        html.Div(
+                            className='more-img',
+                            id='noaa-scenarios-img',
+                            children=[
+                                html.Img(
+                                    src = 'https://nca2018.globalchange.gov/img/figure/figure2_3.png'
+                                ),
+                                dcc.Markdown(className='more-img-caption', children=['''
+**Figure 3:** The six NOAA global mean sea level rise scenarios, and historical observations of global mean sea level change ([Sweet et al., 2017](https://tidesandcurrents.noaa.gov/publications/techrpt83_Global_and_Regional_SLR_Scenarios_for_the_US_final.pdf)). Image is from the [Fourth National Climate Assessment, Chapter 2](https://nca2018.globalchange.gov/chapter/2/).
+                                '''])
+                            ]
+                        ),
+                    ]),
+                ]
+            )
+        ]
+    )
 ])
 
 # ---------------------------------------------------------------------------
@@ -1217,12 +1409,12 @@ def update_threshold_slider_marks(selected_station, units):
     [dash.dependencies.Input('station-picker', 'value')]
     )
 def update_annual_projections_location_text(selected_station):
-    
+
     fname = './json/' + selected_station + '/' \
         + 'thresholds.json'
     with open(fname, 'r') as f:
         noaa_thrsh = json.load(f)
-        
+
     return str(stations[selected_station]['name']), int(noaa_thrsh['minor'])
 
 @app.callback(
